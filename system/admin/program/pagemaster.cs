@@ -17,10 +17,12 @@ namespace PageMaster
          }
          else
          {
+            /*
             if(HttpContext.Current.User.Identity.IsAuthenticated == false)
             {
-               Response.Redirect("/");
+               //Response.Redirect("/");
             }
+            */
          }
       }
    }
