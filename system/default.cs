@@ -8,9 +8,9 @@ namespace Default
    {
       protected void Page_Init(object sender, EventArgs e)
       {
-         if(User.Identity.IsAuthenticated || Session["権限ランクCD"] != null)
+         if(User.Identity.IsAuthenticated || Session["role"] != null)
          {   
-            if((string)Session["権限ランクCD"] == "1")
+            if((string)Session["role"] == "Admin")
             {
                //管理者用セッションの設定
                Response.Redirect("./admin/dashboard.aspx");

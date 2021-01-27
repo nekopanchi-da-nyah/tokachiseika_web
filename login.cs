@@ -23,7 +23,7 @@ namespace Login
       {
          var id = Request.Form["login_id"].ToString();
          var pass = Request.Form["password"].ToString();
-         var sql = @"SELECT * FROM ""M341担当者WEB"" WHERE ""担当者CD"" = '" + id + "' ;";
+         var sql = @"SELECT * FROM ""MW025お客様得意先店担当者"" WHERE ""担当者CD"" = '" + id + "' ;";
          var ds = new DataSet();
          var dt = new DataTable();
          
@@ -41,12 +41,21 @@ namespace Login
             */
             if(dt.Rows[0]["PASSWORD"].ToString() == pass)
             {
-               var role = dt.Rows[0]["権限ランクCD"].ToString();
-               Session["担当者CD"] = id;
-               Session["事業所CD"] = dt.Rows[0]["事業所CD"].ToString();
+               if(dt.Rows[0]["お客様CD"].ToString() == "0001")
+               {
+                  Session["role"] = "Admin";
+               }
+               else
+               {
+                  Session["role"] = "customer";
+               }
+               
+               Session["お客様CD"] = dt.Rows[0]["お客様CD"].ToString();
                Session["得意先CD"] = dt.Rows[0]["得意先CD"].ToString();
-               Session["権限ランクCD"] = role;
-               FormTicket_Issue(id, role, 60);
+               Session["得意先店舗CD"] = dt.Rows[0]["得意先店舗CD"].ToString();
+               Session["担当者CD"] = id;
+               Session["担当者名"] = dt.Rows[0]["担当者名"].ToString();
+               FormTicket_Issue(id, (string)Session["role"], 60);
             }
             else{
                msg = "IDとパスワードに誤りがあります。";
@@ -59,7 +68,7 @@ namespace Login
       }
       
       /******************************************************************
-         認証チケット発行関数
+         認証チケット発行用関数
          @param user ログインユーザー名, role 権限ランク, miuntes ログイン有効時間 
       ******************************************************************/
       protected void FormTicket_Issue(string user, string role, int minutes )

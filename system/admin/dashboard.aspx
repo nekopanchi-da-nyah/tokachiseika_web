@@ -5,29 +5,120 @@
                <div class="output">
                   
                   <div class="box">
-                     <h3 style="color: #f19524">新規（未処理）受注数</h3>
-                     <p class="num">0<small>件</small></p>
+                     <h3>受注管理</h3>
+                     <div class="wrap">
+                        <ul>
+                        
+                           <li>
+                              <a href="">
+                                 <figure>
+                                    <img src="">
+                                    <figcaption>新規受注</figcaption>
+                                 </figure>
+                              </a>
+                           </li>
+                           
+                           <li>
+                              <a href="">
+                                 <figure>
+                                    <img src="">
+                                    <figcaption>受注履歴</figcaption>
+                                 </figure>
+                              </a>
+                           </li>
+                           
+                           <li>
+                              <a href="">
+                                 <figure>
+                                    <img src="">
+                                    <figcaption>未定受注</figcaption>
+                                 </figure>
+                              </a>
+                           </li>
+                           
+                        </ul>
+                     </div>
                   </div>
                   
                   <div class="box">
-                     <h3 style="color: #c74a4a">未出荷受注数</h3>
-                     <p class="num">0<small>件</small></p>
+                     <h3>商品管理</h3>
+                     <div class="wrap">
+                        <ul>
+                        
+                           <li>
+                              <a href="">
+                                 <figure>
+                                    <img src="">
+                                    <figcaption>商品</figcaption>
+                                 </figure>
+                              </a>
+                           </li>
+                           
+                           <li>
+                              <a href="">
+                                 <figure>
+                                    <img src="">
+                                    <figcaption>得意先別商品</figcaption>
+                                 </figure>
+                              </a>
+                           </li>
+                           
+                           <li>
+                              <a href="">
+                                 <figure>
+                                    <img src="">
+                                    <figcaption>基幹連携</figcaption>
+                                 </figure>
+                              </a>
+                           </li>
+                           
+                        </ul>
+                     </div>
+                  </div>
+                  
+                   <div class="box">
+                     <h3>得意先管理</h3>
+                     <div class="wrap">
+                        <ul>
+                        
+                           <li>
+                              <a href="">
+                                 <figure>
+                                    <img src="">
+                                    <figcaption>お客様</figcaption>
+                                 </figure>
+                              </a>
+                           </li>
+                           
+                           <li>
+                              <a href="">
+                                 <figure>
+                                    <img src="">
+                                    <figcaption>得意先</figcaption>
+                                 </figure>
+                              </a>
+                           </li>
+                           
+                           <li>
+                              <a href="">
+                                 <figure>
+                                    <img src="">
+                                    <figcaption>店舗(納品先)</figcaption>
+                                 </figure>
+                              </a>
+                           </li>
+                           
+                        </ul>
+                     </div>
                   </div>
                   
                   <div class="box">
-                     <h3 style="color: #249cf1">先日受注高</h3>
-                     <p class="num">0<small>円</small></p>
+                     <h3>お知らせ</h3>
+                     <div>
+                        <p>デモ管理です。</p>
+                     </div>
                   </div>
                   
-                  <div class="box">
-                     <h3 style="color: #a224f1">今月受注高</h3>
-                     <p class="num">0<small>円</small></p>
-                  </div>
-                  
-               </div>
-               <h2>お知らせ</h2>
-               <div class="info">
-                  <p>デモ管理画面です。</p>
                </div>
             </div>
 </asp:Content>
