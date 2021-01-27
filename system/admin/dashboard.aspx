@@ -1,11 +1,12 @@
 <%@ Page language="C#" masterpagefile="page.master" codefile="program/dashboard.cs" inherits="Dashboard.Program" %>
 <asp:Content ContentPlaceHolderID="content" runat="server">
-            <div id="dashboard">
-               <h2>ダッシュボード</h2>
+            <div id="dashboard" class="inner">
+               <h2>menu</h2>
                <div class="output">
                   
                   <div class="box">
                      <h3>受注管理</h3>
+                     <hr>
                      <div class="wrap">
                         <ul>
                         
@@ -42,6 +43,7 @@
                   
                   <div class="box">
                      <h3>商品管理</h3>
+                     <hr>
                      <div class="wrap">
                         <ul>
                         
@@ -75,9 +77,10 @@
                         </ul>
                      </div>
                   </div>
-                  
-                   <div class="box">
+                 
+                  <div class="box">
                      <h3>得意先管理</h3>
+                     <hr>
                      <div class="wrap">
                         <ul>
                         

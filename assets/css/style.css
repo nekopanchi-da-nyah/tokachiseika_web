@@ -19,6 +19,12 @@ dl, dt, dd {
   padding: 0;
 }
 
+.inner {
+  width: 90%;
+  max-width: 1300px;
+  margin: auto;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -26,7 +32,38 @@ body {
 }
 
 header {
-  background: #5c986e;
+  background: #8bd6b3;
+  color: #fff;
+}
+
+header .inner {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .inner h1 {
+  font-size: 1.5rem;
+  white-space: nowrap;
+}
+
+header .inner form {
+  margin-bottom: 0;
+}
+
+#dashboard h2 {
+  color: #5c986e;
+}
+
+#dashboard h3 {
+  font-size: 1.1rem;
+}
+
+#dashboard hr {
+  border: none;
+  border-bottom: 1px solid #5c986e;
+  height: 1px;
 }
 
 /*# sourceMappingURL=maps/style.css.map */

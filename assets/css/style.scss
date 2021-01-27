@@ -25,6 +25,12 @@ dl, dt, dd{
     padding: 0;
 }
 
+.inner{
+    width: 90%;
+    max-width: 1300px;
+    margin: auto;
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -32,5 +38,33 @@ body{
 }
 
 header{
-    background: $depth;
+    background: #8bd6b3;
+    color: #fff;
+    .inner{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        h1{
+            font-size: 1.5rem;
+            white-space: nowrap;
+        }
+        form{
+            margin-bottom: 0;
+        }
+    }
+}
+
+#dashboard{
+    h2{
+        color: $depth;
+    }
+    h3{
+        font-size: 1.1rem;
+    }
+    hr{
+        border: none;
+        border-bottom: 1px solid $depth;
+        height: 1px;
+    }
 }
