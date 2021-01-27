@@ -23,8 +23,8 @@ gulp.task("default", function() {
             .on("error", sass.logError)
         )
         // cssフォルダー以下に保存
+        .pipe(map.write("./maps"))
         .pipe(gulp.dest("css"))
-        .pipe(map.write("./css/map/"))
     );
   });
 });
