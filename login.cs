@@ -36,10 +36,11 @@ namespace Login
          
          if(dt.Rows.Count > 0)
          {
+            /* パスワードハッシュ処理しなさそうな設計のため、ハッシュ化なし。
             var hexa = new Hash(pass);
-            if(dt.Rows[0]["PASSWORD"].ToString() == hexa.str)
+            */
+            if(dt.Rows[0]["PASSWORD"].ToString() == pass)
             {
-               msg = "SUCCESS";
                var role = dt.Rows[0]["権限ランクCD"].ToString();
                Session["担当者CD"] = id;
                Session["事業所CD"] = dt.Rows[0]["事業所CD"].ToString();

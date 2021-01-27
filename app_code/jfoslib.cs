@@ -11,7 +11,7 @@ namespace JfosLib
    {
       /* postgre 接続文字列設定用 */
       private string server =    "localhost";
-      private string port =      "5433";
+      private string port =      "7777";
       private string user_id =   "postgres";
       private string database =  "TSKWEBDB01";
       private string password =  "jfos";

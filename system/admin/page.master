@@ -1,0 +1,69 @@
+<%@ master language="C#" codefile="program/pagemaster.cs" inherits="PageMaster.Program" %>
+<!DOCTYPE>
+<html lang="ja">
+<head>
+<title>とかち製菓WEB発注システム</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" href="http://<%= Request.ServerVariables["HTTP_HOST"] %>/assets/css/style.css">
+</head>
+<body>
+   <header>
+      <div class="inner">
+         <h1><a href="http://<%= Request.ServerVariables["HTTP_HOST"] %>">とかち製菓WEB発注管理システム</a></h1>
+         <div>
+            <form method="POST" class="logout">
+               <input name="logout" type="submit" value="ログアウト" />
+            </form>
+         </div>
+      </div>
+   </header>
+   <main>
+      <article>
+         <div id="left_navi">
+            <nav>
+               <ul>
+                  <li>
+                     <dl>
+                        <dt><img src="http://<%= Request.ServerVariables["HTTP_HOST"] %>/assets/img/order_icon.png">受注管理</dt>
+                        <dd><a href="#">未処理</a></dd>
+                        <dd><a href="#">未出荷</a></dd>
+                        <dd><a href="#">受注一覧</a></dd>
+                     </dl>
+                  </li>
+                  <li>
+                     <dl>
+                        <dt><img src="http://<%= Request.ServerVariables["HTTP_HOST"] %>/assets/img/item_icon.png">商品管理</dt>
+                        <dd><a href="#">商品登録</a></dd>
+                        <dd><a href="#">商品編集</a></dd>
+                        <dd><a href="#">商品管理</a></dd>
+                     </dl>
+                  </li>
+                  <li>
+                     <dl>
+                        <dt><img src="http://<%= Request.ServerVariables["HTTP_HOST"] %>/assets/img/customer_icon.png">得意先管理</dt>
+                        <dd><a href="#">WEBユーザー</a></dd>
+                        <dd><a href="#">得意先</a></dd>
+                        <dd><a href="#">事業所</a></dd>
+                        <dd><a href="#">部門</a></dd>
+                     </dl>
+                  </li>
+                  <li>
+                     <dl>
+                        <dt><img src="http://<%= Request.ServerVariables["HTTP_HOST"] %>/assets/img/history_icon.png">マスタ登録</dt>
+                        <dd><a href="entry/item.aspx">商品登録</a></dd>
+                        <dd><a href="entry/customer.aspx">WEBユーザー登録</a></dd>
+                        <dd><a href="entry/office.aspx">事業所登録</a></dd>
+                        <dd><a href="entory/department.aspx">部門登録</a></dd>
+                     </dl>
+                  </li>
+               </ul>
+            </nav>
+         </div>
+         <div id="main_container">
+            <asp:ContentPlaceHolder id="content" runat="server"></asp:ContentPlaceHolder>
+         </div>
+      </article>
+   </main>
+</body>
+</html>
