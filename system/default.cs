@@ -1,6 +1,7 @@
 using System;
 using System.Web;
 using System.Web.UI;
+using System.Web.Security;
 
 namespace Default
 {
@@ -8,7 +9,7 @@ namespace Default
    {
       protected void Page_Init(object sender, EventArgs e)
       {
-         if(User.Identity.IsAuthenticated || Session["role"] != null)
+         if(User.Identity.IsAuthenticated && Session["role"] != null)
          {   
             if((string)Session["role"] == "Admin")
             {
@@ -21,7 +22,8 @@ namespace Default
             }
          }else
          {
-            Response.Write("../login.aspx");
+            FormsAuthentication.SignOut();
+            Response.Redirect("../login.aspx");
          }
       }
    }

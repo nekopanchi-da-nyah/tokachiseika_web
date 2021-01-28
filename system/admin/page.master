@@ -5,13 +5,14 @@
 <title>とかち製菓WEB発注システム</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link rel="stylesheet" href="http://localhost:10080/assets/css/style.css">
+<link rel="stylesheet" href="<%= home %>/assets/css/style.css">
 </head>
 <body>
    <header>
       <div class="inner">
          <h1><a href="/">とかち製菓WEB発注管理システム</a></h1>
-         <div>
+         <div style="text-align: center">
+            <p>管理者専用画面</p>
             <form method="POST" class="logout">
                <input name="logout" type="submit" value="ログアウト" />
             </form>

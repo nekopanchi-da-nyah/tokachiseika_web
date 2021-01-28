@@ -1,3 +1,6 @@
+/*sass variables */
+/*sass functions */
+/* sass */
 a {
   color: inherit;
   text-decoration: none;
@@ -6,6 +9,11 @@ a {
 a:visited {
   color: inherit;
   text-decoration: none;
+}
+
+h1, h2, h3, p, figure {
+  margin: 0;
+  padding: 0;
 }
 
 ul, li {
@@ -32,8 +40,9 @@ body {
 }
 
 header {
-  background: #8bd6b3;
+  background: #58b976;
   color: #fff;
+  padding: 0.5rem 0;
 }
 
 header .inner {
@@ -52,6 +61,17 @@ header .inner form {
   margin-bottom: 0;
 }
 
+#main_container {
+  padding: 2rem 0;
+  background: #eee;
+}
+
+#dashboard {
+  background: #fff;
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
 #dashboard h2 {
   color: #5c986e;
 }
@@ -64,6 +84,50 @@ header .inner form {
   border: none;
   border-bottom: 1px solid #5c986e;
   height: 1px;
+}
+
+#dashboard .box {
+  padding: 2rem 0;
+}
+
+#dashboard .wrap ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#dashboard .wrap ul li {
+  margin: 2rem;
+}
+
+#dashboard .wrap ul li figure {
+  background: #58b976;
+  color: #fff;
+  width: 95px;
+  height: 95px;
+  border-radius: 8px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+}
+
+#dashboard .wrap ul li figure img {
+  max-width: 100%;
+  width: auto;
+  height: 50px;
+}
+
+#dashboard .wrap ul li figure figcaption {
+  font-size: 0.8rem;
+}
+
+#dashboard .wrap ul li figure:hover {
+  background: #d27fa3;
+  opacity: 0.9;
+  transition: 0.4s;
 }
 
 /*# sourceMappingURL=maps/style.css.map */

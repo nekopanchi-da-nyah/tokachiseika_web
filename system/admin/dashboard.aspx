@@ -13,7 +13,7 @@
                            <li>
                               <a href="">
                                  <figure>
-                                    <img src="">
+                                    <img src="<%= imgPath %>order_icon_2.png">
                                     <figcaption>新規受注</figcaption>
                                  </figure>
                               </a>
@@ -22,7 +22,7 @@
                            <li>
                               <a href="">
                                  <figure>
-                                    <img src="">
+                                    <img src="<%= imgPath %>history_icon.png">
                                     <figcaption>受注履歴</figcaption>
                                  </figure>
                               </a>
@@ -31,7 +31,7 @@
                            <li>
                               <a href="">
                                  <figure>
-                                    <img src="">
+                                    <img src="<%= imgPath %>quetion_icon.png">
                                     <figcaption>未定受注</figcaption>
                                  </figure>
                               </a>
@@ -50,7 +50,7 @@
                            <li>
                               <a href="">
                                  <figure>
-                                    <img src="">
+                                    <img src="<%= imgPath %>item_icon.png">
                                     <figcaption>商品</figcaption>
                                  </figure>
                               </a>
@@ -59,7 +59,7 @@
                            <li>
                               <a href="">
                                  <figure>
-                                    <img src="">
+                                    <img src="<%= imgPath %>link_icon.png">
                                     <figcaption>得意先別商品</figcaption>
                                  </figure>
                               </a>
@@ -68,7 +68,7 @@
                            <li>
                               <a href="">
                                  <figure>
-                                    <img src="">
+                                    <img src="<%= imgPath %>cooperation_icon.png">
                                     <figcaption>基幹連携</figcaption>
                                  </figure>
                               </a>
@@ -85,9 +85,9 @@
                         <ul>
                         
                            <li>
-                              <a href="">
+                              <a href="page_customer/customer/default.aspx">
                                  <figure>
-                                    <img src="">
+                                    <img src="<%= imgPath %>account_icon.png">
                                     <figcaption>お客様</figcaption>
                                  </figure>
                               </a>
@@ -96,7 +96,7 @@
                            <li>
                               <a href="">
                                  <figure>
-                                    <img src="">
+                                    <img src="<%= imgPath %>customer_icon.png">
                                     <figcaption>得意先</figcaption>
                                  </figure>
                               </a>
@@ -105,7 +105,7 @@
                            <li>
                               <a href="">
                                  <figure>
-                                    <img src="">
+                                    <img src="<%= imgPath %>store_icon.png">
                                     <figcaption>店舗(納品先)</figcaption>
                                  </figure>
                               </a>

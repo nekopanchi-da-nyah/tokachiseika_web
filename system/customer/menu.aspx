@@ -3,7 +3,7 @@
                <div id="menu">
                   <div class="login_info">
                      <ul>
-                        <li><%= Session["得意先CD"] %></li>
+                        <li><%= Session["role"] == null %></li>
                      </ul>
                   </div>
                   <h2>MENU</h2>
