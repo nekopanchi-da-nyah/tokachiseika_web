@@ -10,6 +10,7 @@ namespace PageMaster
    public partial class Program : MasterPage
    {
       public string home = Variable.homeURL();
+      public string imgPath = Variable.homeURL() + "assets/img/";
    
       public void Page_Init(object sender, EventArgs e)
       {

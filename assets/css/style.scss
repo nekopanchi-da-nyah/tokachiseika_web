@@ -32,7 +32,7 @@ a:visited{
     text-decoration: none;
 }
 
-h1,h2,h3,p,figure{
+h1,h2,h3,p,figure,form{
     margin: 0;
     padding: 0;
 }
@@ -50,8 +50,19 @@ dl, dt, dd{
 
 .inner{
     width: 90%;
-    max-width: 1300px;
+    max-width: 900px;
     margin: auto;
+}
+
+.breadcrumb{
+    div{
+        ul{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+            align-items: stretch;
+        }
+    }
 }
 
 body{
@@ -134,6 +145,227 @@ header{
                     background: #d27fa3;
                     opacity: 0.9;
                     transition: 0.4s;
+                }
+            }
+        }
+    }
+}
+
+#customer{
+    h2{
+        margin-bottom: 1rem;
+    }
+    .search_area{
+        background: #fff;
+        border: 1px solid #aaa;
+        box-sizing: border-box;
+        padding: 1rem;
+        h3{
+            font-size: 1.0rem;
+            text-align: center;
+            transform: translateY(-1.75rem);
+            width: max-content;
+            background: linear-gradient(transparent 0%, rgba(255,255,255,1) 49% );
+            padding: 0 1rem;
+        }
+        form{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+            align-items: flex-end;
+            ul{
+                li{
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: flex-start;
+                    align-items: stretch;
+                    margin-bottom: 1rem;
+                    label{
+                        width: 120px;
+                        background: $color;
+                        color: #fff;
+                        text-align: center;
+                        border-radius: 5px 0 0 5px;
+                        padding: 0.25rem;
+                    }
+                    input[type="text"]{
+                        min-width: 120px;
+                        border: 1px solid $color;
+                        border-radius: 0 5px 5px 0;
+                        font-size: 1rem;
+                        letter-spacing: 1px;
+                        padding-left: 1rem;
+                    }
+                }
+            }
+            .btn{
+                margin-left: 3rem;
+                margin-bottom: 1rem;
+                button{
+                    padding: 0.25rem 1rem;
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: center;
+                    align-items: center;
+                }
+                button::before{
+                    content: '';
+                    display: inline-block;
+                    width: 15px;
+                    height: 15px;
+                    background-image: url("../img/loupe_icon.png");
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                }
+            }
+        }
+    }
+    .output{
+        background: #fff;
+        margin: 2rem auto;
+        border-radius: 10px;
+        padding: 1rem;
+        table{
+            min-width: 70%;
+            border-collapse: collapse;
+            thead{
+                tr{
+                    background: $depth;
+                    th{ 
+                        border: 1px solid #fff;
+                        color: #fff;
+                    }
+                }
+            }
+            tbody{
+                tr{
+                    td{
+                        border: 1px solid #aaa;
+                        padding: 0.5rem;
+                    }
+                }
+            }
+        }
+        p{
+            span{
+                font-size: 1.25rem;
+                font-weight: bold;
+                color: $depth;
+            }
+        }
+    }
+    .btns{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+        align-items: center;
+        button{
+            margin: 1.5rem 0 1.5rem 1.5rem;
+            font-size: 1rem;
+            padding: 0.25rem 2rem;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+        }
+        button::before{
+            content: '';
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            margin-right: 0.5rem;
+        }
+        >div:nth-child(1){
+            button::before{
+                background-image: url("../img/x_icon_b.png");
+                transform: rotate(45deg);
+            }
+        }
+        >div:nth-child(2){
+            button::before{
+                background-image: url("../img/x_icon_r.png");
+            }
+        }
+    }
+}
+
+#customer .entry_form{
+    form{
+        ul{
+            li{
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: flex-start;
+                align-items: stretch;
+                margin-bottom: 1rem;
+                label{
+                    width: 120px;
+                    background: $color;
+                    color: #fff;
+                    text-align: center;
+                    border-radius: 5px 0 0 5px;
+                    padding: 0.25rem;
+                }
+                input[type="text"]{
+                    border: 1px solid $color;
+                    border-radius: 0 5px 5px 0;
+                    font-size: 1rem;
+                    letter-spacing: 1px;
+                    padding-left: 1rem;
+                }
+                select{
+                    border: 1px solid $color;
+                    color: #000;
+                    border-radius: 0 5px 5px 0;
+                    padding: 0 0.5rem;
+                    width: 110px;
+                }
+                textarea{
+                    border: 1px solid $color;
+                    border-radius: 0 5px 5px 0;
+                    padding: 1rem;
+                    width: 22rem;
+                    font-size: 18px;
+                }
+            }
+        }
+        .btns{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            button{
+                margin: 1.5rem 0 1.5rem 1.5rem;
+                font-size: 1rem;
+                padding: 0.25rem 2rem;
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: center;
+                align-items: center;
+            }
+            button::before{
+                content: '';
+                display: inline-block;
+                width: 1.5rem;
+                height: 1.5rem;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+                margin-right: 0.5rem;
+            }
+            >div:nth-child(1){
+                button::before{
+                    background-image: url("../img/x_icon_b.png");
+                    transform: rotate(45deg);
+                }
+            }
+            >div:nth-child(2){
+                button::before{
+                    background-image: url("../img/x_icon_r.png");
                 }
             }
         }
