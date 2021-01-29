@@ -227,23 +227,66 @@ header{
         border-radius: 10px;
         padding: 1rem;
         table{
-            min-width: 70%;
+            max-width: 700px;
             border-collapse: collapse;
             thead{
+                width: 100%;
                 tr{
-                    background: $depth;
-                    th{ 
-                        border: 1px solid #fff;
+                    background: $color;
+                    th{
+                        display: inline-block;
+                        border: 1px solid #aaa;
                         color: #fff;
+                        box-sizing: border-box;
+                    }
+                    th:nth-child(1){
+                        width: 300px;
+                    }
+                    th:nth-child(2){
+                        width: 100px;
+                    }
+                    th:nth-child(3){
+                        width: 200px;
+                    }
+                    th:nth-child(4){
+                        width: 100px;
                     }
                 }
             }
             tbody{
+                width: 700px;
+                overflow-y: auto;
+                height: 60vh;
+                display: block;
                 tr{
                     td{
                         border: 1px solid #aaa;
                         padding: 0.5rem;
+                        box-sizing: border-box;
                     }
+                    td:nth-child(1){
+                        width: 100px;
+                    }
+                    td:nth-child(2){
+                        width: 200px;
+                    }
+                    td:nth-child(3){
+                        width: 100px;
+                    }
+                    td:nth-child(4){
+                        width: 50px;
+                    }
+                    td:nth-child(5){
+                        width: 150px;
+                    }
+                    td:nth-child(6){
+                        width: 100px;
+                    }
+                }
+                tr:hover{
+                    cursor: pointer;
+                    background: #f9d0e2;
+                    opacity: 0.8;
                 }
             }
         }
@@ -279,16 +322,15 @@ header{
             background-position: center center;
             margin-right: 0.5rem;
         }
-        >div:nth-child(1){
-            button::before{
-                background-image: url("../img/x_icon_b.png");
-                transform: rotate(45deg);
-            }
+        button.trush::before{
+            background-image: url("../img/trush_icon.png");
         }
-        >div:nth-child(2){
-            button::before{
-                background-image: url("../img/x_icon_r.png");
-            }
+        button.puls::before{
+            background-image: url("../img/x_icon_b.png");
+            transform: rotate(45deg);
+        }
+        button.end::before{
+            background-image: url("../img/x_icon_r.png");
         }
     }
 }
@@ -357,16 +399,15 @@ header{
                 background-position: center center;
                 margin-right: 0.5rem;
             }
-            >div:nth-child(1){
-                button::before{
-                    background-image: url("../img/x_icon_b.png");
-                    transform: rotate(45deg);
-                }
+            button.trush::before{
+                background-image: url("../img/trush_icon.png");
             }
-            >div:nth-child(2){
-                button::before{
-                    background-image: url("../img/x_icon_r.png");
-                }
+            button.puls::before{
+                background-image: url("../img/x_icon_b.png");
+                transform: rotate(45deg);
+            }
+            button.end::before{
+                background-image: url("../img/x_icon_r.png");
             }
         }
     }

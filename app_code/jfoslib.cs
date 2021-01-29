@@ -1,8 +1,9 @@
 using System;
-using System.Web.UI;
+using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Security.Cryptography;
+using System.Web.UI;
 using Npgsql;
 
 namespace JfosLib
@@ -54,5 +55,19 @@ namespace JfosLib
          }
          this.str = hexa.ToString();
       }
+   }
+   
+   public static class Week
+   {
+      public static Dictionary<int, string> str = new Dictionary<int, string>()
+      {
+         { 1, "月" },
+         { 2, "火" },
+         { 3, "水" },
+         { 4, "木" },
+         { 5, "金" },
+         { 6, "土" },
+         { 7, "日" }
+      };
    }
 }

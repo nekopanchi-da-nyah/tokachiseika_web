@@ -1,4 +1,4 @@
-<%@ Page language="C#" masterpagefile="../../page.master" codefile="entry.cs" inherits="Entry" %>
+<%@ Page language="C#" masterpagefile="../../page.master" codefile="program/entry.cs" inherits="Entry" %>
 <asp:Content ContentPlaceHolderID="content" runat="server">
             <div id="customer" class="inner">
                <h2>お客様新規登録</h2>
@@ -33,7 +33,7 @@
                            <select name="collection_code">
                               <option></option>
                               <% for(var i = 0; i < collectionCD.Rows.Count; i++){ %>
-                              <% if( (i + 1).ToString() == Request.Form["collection_code"].ToString() ){ %>
+                              <% if( (i + 1).ToString() == colCode ){ %>
                               <option value="<%= (string)collectionCD.Rows[i]["CD"] %>" selected><span><%= (string)collectionCD.Rows[i]["CD"] + " : " + (string)collectionCD.Rows[i]["名称"] %><span></option>
                               <% } else { %>
                               <option value="<%= (string)collectionCD.Rows[i]["CD"] %>"><span><%= (string)collectionCD.Rows[i]["CD"] + " : " + (string)collectionCD.Rows[i]["名称"] %><span></option>
@@ -45,7 +45,7 @@
                            <select name="collection_sight">
                               <option></option>
                               <% for(var i = 0; i < collectionSight.Rows.Count; i++){ %>
-                              <% if( (i).ToString() == Request.Form["collection_sight"].ToString() ){ %>
+                              <% if( (i).ToString() == colSight ){ %>
                               <option value="<%= (string)collectionSight.Rows[i]["CD"] %>" selected><span><%= (string)collectionSight.Rows[i]["CD"] + " : " + (string)collectionSight.Rows[i]["名称"] %><span></option>
                               <% } else { %>
                               <option value="<%= (string)collectionSight.Rows[i]["CD"] %>"><span><%= (string)collectionSight.Rows[i]["CD"] + " : " + (string)collectionSight.Rows[i]["名称"] %><span></option>
@@ -63,11 +63,11 @@
                      </ul>
                      <div class="btns">
                         <div>
-                           <button type="submit" name="submit" value="add">登録</button>
+                           <button class="puls" type="submit" name="submit" value="add">登録</button>
                         </div>
                         
                         <div>
-                           <button><a href="default.aspx">終了</a></button>
+                           <button class="end"><a href="default.aspx">終了</a></button>
                         </div>
                      </div>
                   </form>

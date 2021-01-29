@@ -222,22 +222,82 @@ header .inner form {
 }
 
 #customer .output table {
-  min-width: 70%;
+  max-width: 700px;
   border-collapse: collapse;
 }
 
+#customer .output table thead {
+  width: 100%;
+}
+
 #customer .output table thead tr {
-  background: #5c986e;
+  background: #58b976;
 }
 
 #customer .output table thead tr th {
-  border: 1px solid #fff;
+  display: inline-block;
+  border: 1px solid #aaa;
   color: #fff;
+  box-sizing: border-box;
+}
+
+#customer .output table thead tr th:nth-child(1) {
+  width: 300px;
+}
+
+#customer .output table thead tr th:nth-child(2) {
+  width: 100px;
+}
+
+#customer .output table thead tr th:nth-child(3) {
+  width: 200px;
+}
+
+#customer .output table thead tr th:nth-child(4) {
+  width: 100px;
+}
+
+#customer .output table tbody {
+  width: 700px;
+  overflow-y: auto;
+  height: 60vh;
+  display: block;
 }
 
 #customer .output table tbody tr td {
   border: 1px solid #aaa;
   padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+#customer .output table tbody tr td:nth-child(1) {
+  width: 100px;
+}
+
+#customer .output table tbody tr td:nth-child(2) {
+  width: 200px;
+}
+
+#customer .output table tbody tr td:nth-child(3) {
+  width: 100px;
+}
+
+#customer .output table tbody tr td:nth-child(4) {
+  width: 50px;
+}
+
+#customer .output table tbody tr td:nth-child(5) {
+  width: 150px;
+}
+
+#customer .output table tbody tr td:nth-child(6) {
+  width: 100px;
+}
+
+#customer .output table tbody tr:hover {
+  cursor: pointer;
+  background: #f9d0e2;
+  opacity: 0.8;
 }
 
 #customer .output p span {
@@ -274,12 +334,16 @@ header .inner form {
   margin-right: 0.5rem;
 }
 
-#customer .btns > div:nth-child(1) button::before {
+#customer .btns button.trush::before {
+  background-image: url("../img/trush_icon.png");
+}
+
+#customer .btns button.puls::before {
   background-image: url("../img/x_icon_b.png");
   transform: rotate(45deg);
 }
 
-#customer .btns > div:nth-child(2) button::before {
+#customer .btns button.end::before {
   background-image: url("../img/x_icon_r.png");
 }
 
@@ -352,12 +416,16 @@ header .inner form {
   margin-right: 0.5rem;
 }
 
-#customer .entry_form form .btns > div:nth-child(1) button::before {
+#customer .entry_form form .btns button.trush::before {
+  background-image: url("../img/trush_icon.png");
+}
+
+#customer .entry_form form .btns button.puls::before {
   background-image: url("../img/x_icon_b.png");
   transform: rotate(45deg);
 }
 
-#customer .entry_form form .btns > div:nth-child(2) button::before {
+#customer .entry_form form .btns button.end::before {
   background-image: url("../img/x_icon_r.png");
 }
 

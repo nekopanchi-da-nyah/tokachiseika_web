@@ -12,10 +12,16 @@ public partial class Entry : Page
    public string validMsg = "";
    public string errMsg = "";
    
+   /* コンボ設定残し用 POST変数 */
+   public string colCode = "";
+   public string colSight = "";
+   
    protected void Page_Init(object sender, EventArgs e)
    {
       if((string)Request.Form["submit"] == "add")
       {
+         colCode = Request.Form["collection_code"].ToString();
+         colSight = Request.Form["collection_sight"].ToString();
          Submit_Add();
       }
    
@@ -54,7 +60,7 @@ public partial class Entry : Page
             db.conn.Open();
             var tran = db.conn.BeginTransaction();
             var today = DateTime.Today.ToString("yyyy/MM/dd");
-            var time = new DateTimeOffset(DateTime.Now);
+            var time = DateTime.Now.ToString("HH:mm:ss");
             try
             {
                var row = wt.NewRow();
@@ -62,8 +68,8 @@ public partial class Entry : Page
                row["お客様名称"] = Request.Form["customer_name"].ToString();
                row["お客様略称"] = Request.Form["short_name"].ToString();
                row["締日"] = Request.Form["deadline"].ToString();
-               row["回収区分CD"] = Request.Form["collection_code"].ToString();
-               row["回収SIGHTCD"] = Request.Form["collection_sight"].ToString();
+               row["回収区分CD"] = colCode;
+               row["回収SIGHTCD"] = colSight;
                row["回収日"] = Request.Form["collection_date"].ToString();
                row["お客様MEMO"] = Request.Form["memo"].ToString();
                row["登録年月日"] = today;

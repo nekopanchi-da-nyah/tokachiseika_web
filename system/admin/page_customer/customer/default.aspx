@@ -1,7 +1,8 @@
-<%@ Page language="C#" masterpagefile="../../page.master" codefile="default.cs" inherits="Default" %>
+<%@ Page language="C#" masterpagefile="../../page.master" codefile="program/default.cs" inherits="Default" %>
 <%@ MasterType VirtualPath="../../page.master" %>
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
+            <script src="program/default.js"></script>
             <div id="customer" class="inner">
                <h2>お客様一覧</h2>
                <div class="search_area">
@@ -37,7 +38,7 @@
                         </thead>
                         <tbody>
                            <% for(var i = 0; i < dt.Rows.Count; i++){ %>
-                           <tr>
+                           <tr data-href="<%= dt.Rows[i]["お客様CD"] %>">
                               <td><%= dt.Rows[i]["お客様CD"] %></td>
                               <td><%= dt.Rows[i]["お客様名称"] %></td>
                               <td><%= dt.Rows[i]["締日"] %></td>
@@ -59,10 +60,10 @@
                </div>
                <div class="btns">
                   <div>
-                     <a href="entry.aspx"><button>新規</button></a>
+                     <a href="entry.aspx"><button class="puls">新規</button></a>
                   </div>
                   <div>
-                     <a href="../../dashboard.aspx"><button>終了</button></a>
+                     <a href="../../dashboard.aspx"><button class="end">終了</button></a>
                   </div>
                </div>
                <div class="breadcrumb">
