@@ -429,4 +429,58 @@ header .inner form {
   background-image: url("../img/x_icon_r.png");
 }
 
+.user {
+  background: #eee;
+}
+
+#usermenu {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+#usermenu h2 {
+  text-align: center;
+  color: #5c986e;
+}
+
+#usermenu .output ul {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: max-content;
+}
+
+#usermenu .output ul li {
+  margin: 1.5rem;
+}
+
+#usermenu .output ul li figure {
+  background: #58b976;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0 3rem;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+#usermenu .output ul li figure img {
+  height: 40px;
+  margin: 0.5rem;
+}
+
+#usermenu .output ul li figure figcaption {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+#usermenu .output ul li figure:hover {
+  transition: 0.5s;
+  background: #d27fa3;
+}
+
 /*# sourceMappingURL=maps/style.css.map */

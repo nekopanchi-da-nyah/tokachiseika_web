@@ -1,34 +1,30 @@
-<%@ master language="C#" codefile="./program/page_master.cs" inherits="Page_Master.Program" %>
+<%@ master language="C#" codefile="program/pagemaster.cs" inherits="PageMaster.Program" %>
 <!DOCTYPE>
 <html lang="ja">
 <head>
-<title>とかち製菓発注システム</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>とかち製菓WEB発注システム</title>
 <meta charset="utf-8">
-<link rel="stylesheet" href="../system/assets/css/style.css">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" href="<%= home %>/assets/css/style.css">
 </head>
-<body>
-   <div id="article">
-      <header>
-         <div class="inner">
-            <div>
-               <h1><a href="./menu.aspx">とかち製菓発注システム</a></h1>
-            </div>
-            <div style="display: flex; flex-flow: row; justify-content: center; align-items: center;">
-               <p style="margin-right: 1.5rem;"><%= Session["担当者CD"] %></p>
-               <form method="POST">
-                  <input name="logout" type="submit" value="ログアウト" />
-               </form>
-            </div>
+<body class="user">
+   <header>
+      <div class="inner">
+         <h1><a href="/">とかち製菓WEB発注</a></h1>
+         <div style="text-align: center">
+            <p><%= (string)Session["担当者名"] %></p>
+            <form method="POST" class="logout">
+               <input name="logout" type="submit" value="ログアウト" />
+            </form>
          </div>
-      </header>
-      <main>
-         <div class="inner">
-            <div class="content">
-               <asp:ContentPlaceHolder id="main_content" runat="server"></asp:ContentPlaceHolder>
-            </div>
+      </div>
+   </header>
+   <main>
+      <article>
+         <div id="main_container" class="user_account">
+            <asp:ContentPlaceHolder id="content" runat="server"></asp:ContentPlaceHolder>
          </div>
-      </main>
-   </div>
+      </article>
+   </main>
 </body>
 </html>

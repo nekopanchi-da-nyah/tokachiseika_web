@@ -412,3 +412,58 @@ header{
         }
     }
 }
+
+.user{
+    background: #eee;
+}
+
+#usermenu{
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    h2{
+        text-align: center;
+        color: $depth;
+    }
+    .output{
+        ul{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            width: max-content;
+            li{
+                margin: 1.5rem;
+                figure{
+                    background: $color;
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0 3rem;
+                    border-radius: 10px;
+                    transition: 0.5s;
+                    img{
+                        height: 40px;
+                        margin: 0.5rem;
+                    }
+                    figcaption{
+                        font-size: 1.2rem;
+                        color: #fff;
+                    }
+                }
+                figure:hover{
+                    transition: 0.5s;
+                    background: #d27fa3;
+                }
+            }
+        }
+    }
+}
+
+.user{
+    #order{
+    
+    }
+}
