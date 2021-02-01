@@ -11,7 +11,7 @@ namespace PageMaster
    {
       public string home = Variable.homeURL();
       public string imgPath = Variable.homeURL() + "assets/img/";
-      public string uploadPath = Variable.homeURL() + "upload/img";
+      public string uploadPath = Variable.homeURL() + "upload/img/";
       
       public void Page_Init(object sender, EventArgs e)
       {

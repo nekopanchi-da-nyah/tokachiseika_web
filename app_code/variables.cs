@@ -5,7 +5,7 @@ namespace Variables
    public static class Variable
    {
       static string tcp = "https://";
-      static string domain = "localhost:10443";
+      static string domain = "localhost";
       
       public static string homeURL()
       {

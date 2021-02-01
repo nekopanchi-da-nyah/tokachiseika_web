@@ -21,6 +21,9 @@
    </header>
    <main>
       <article>
+         <div class="inner">
+            <p><%= DateTime.Now %></p>
+         </div>
          <div id="main_container" class="user_account">
             <asp:ContentPlaceHolder id="content" runat="server"></asp:ContentPlaceHolder>
          </div>

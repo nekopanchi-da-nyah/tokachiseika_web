@@ -464,6 +464,119 @@ header{
 
 .user{
     #order{
-    
+        form{
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            .row{
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: flex-start;
+                align-items: flex-start;
+                .userinfo{
+                    margin-right: 3rem;
+                    ul{
+                        margin-bottom: 1rem;
+                        li{
+                            display: flex;
+                            flex-flow: row nowrap;
+                            justify-content: flex-start;
+                            align-items: stretch;
+                            label{
+                                width: 120px;
+                                background: $color;
+                                color: #fff;
+                                padding: 0.25rem;
+                                box-sizing: border-box;
+                                border-bottom: 1px solid #fff;
+                                border-radius: 5px 0 0 0;
+                                text-align: center;
+                            }
+                            select{
+                                width: 15em;
+                                border: 1px solid $color;
+                                border-radius: 0 5px 0 0;
+                            }
+                        }
+                        li:last-child{
+                            label{
+                                border: none;
+                                border-radius: 0 0 0 5px;
+                            }
+                            select{
+                                border-radius: 0 0 5px 0;
+                            }
+                        }
+                    }
+                }
+                .sort{
+                    margin-bottom: 2rem;
+                    ul{
+                        li{
+                            display: flex;
+                            flex-flow: row nowrap;
+                            justify-content: flex-start;
+                            align-items: stretch;
+                            label{
+                                width: 120px;
+                                background: $color;
+                                color: #fff;
+                                box-sizing: border-box;
+                                padding: 0.25rem;
+                                border-radius: 5px 0 0 5px;
+                                text-align: center;
+                            }
+                            select{
+                                width: 15em;
+                                border: 1px solid $color;
+                                border-radius: 0 5px 5px 0;
+                            }
+                        }
+                    }
+                }
+            }
+            .search{
+                .input_block{
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: center;
+                    align-items: stretch;
+                    >p{
+                        background: $color;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: #fff;
+                        border-radius: 5px 0 0 5px;
+                        padding: 0.5rem 1.5rem;
+                    }
+                    ul{
+                        border-left: 1px solid #fff;
+                        li{
+                            display: flex;
+                            flex-flow: row nowrap;
+                            justify-content: flex-start;
+                            align-items: stretch;
+                            label{
+                                background: $color;
+                                width: 120px;
+                                color: #fff;
+                                border-bottom: 1px solid #fff;
+                                text-align: center;
+                            }
+                        }
+                        li:last-child{
+                            label{
+                                border-bottom: none;
+                            }
+                        }
+                    }
+                }
+                .btn{
+                    text-align: right;
+                    margin: 1rem;
+                }
+            }
+        }
     }
 }
