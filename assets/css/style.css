@@ -29,7 +29,7 @@ dl, dt, dd {
 
 .inner {
   width: 90%;
-  max-width: 900px;
+  max-width: 980px;
   margin: auto;
 }
 
@@ -496,6 +496,17 @@ header .inner form {
   align-items: flex-start;
 }
 
+.user #order form .row > p:first-child {
+  margin-right: auto;
+  margin-top: 1rem;
+}
+
+.user #order form .row > p:last-child {
+  font-weight: bold;
+  color: #c99;
+  font-size: 1.1rem;
+}
+
 .user #order form .row .userinfo {
   margin-right: 3rem;
 }
@@ -607,6 +618,124 @@ header .inner form {
 .user #order form .search .btn {
   text-align: right;
   margin: 1rem;
+}
+
+.user #order .output {
+  margin: 1.5rem auto;
+}
+
+.user #order .output ul li {
+  background: #f6fff2;
+  padding: 0.5rem;
+}
+
+.user #order .output ul li .flex {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.user #order .output ul li .flex figure img {
+  width: auto;
+  max-height: 100px;
+  border-radius: 8px;
+}
+
+.user #order .output ul li .flex .left {
+  margin-left: 1rem;
+  width: 20%;
+}
+
+.user #order .output ul li .flex .right {
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  justify-content: space-around;
+  font-size: 0.9rem;
+  width: 80%;
+}
+
+.user #order .output ul li .flex .right .upper {
+  display: flex;
+}
+
+.user #order .output ul li .flex .right .upper .item_code {
+  margin-right: 1rem;
+}
+
+.user #order .output ul li .flex .right .lower {
+  display: flex;
+}
+
+.user #order .output ul li .flex .right .lower dl {
+  background: #eee;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.user #order .output ul li .flex .right .lower dl dt {
+  border: 1px solid #aaa;
+  padding: 0.25rem;
+}
+
+.user #order .output ul li .flex .right .lower dl dd {
+  border: 1px solid #aaa;
+  border-left: none;
+  border-right: none;
+  padding: 0.25rem;
+}
+
+.user #order .output ul li .flex .right .lower dl dd:last-child {
+  border-right: 1px solid #aaa;
+}
+
+.user #order .output ul li .flex .item_price {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+}
+
+.user #order .output ul li .flex .inputs {
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+  display: flex;
+}
+
+.user #order .output ul li .flex .inputs input[type="number"] {
+  width: 4rem;
+}
+
+.user #order .output ul li .flex .inputs input[type="number"] .calc {
+  display: flex;
+}
+
+.user #order .output ul li:nth-child(2n) {
+  background: #fff;
+}
+
+.user #order .btn {
+  text-align: right;
+  margin: 1rem;
+}
+
+.user #order .total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: centr;
+  aling-items: stretch;
+}
+
+.user #order .total p {
+  border: 1px solid #aaa;
+  padding: 0.5rem;
+}
+
+.user #order .total #total {
+  width: 250px;
 }
 
 /*# sourceMappingURL=maps/style.css.map */

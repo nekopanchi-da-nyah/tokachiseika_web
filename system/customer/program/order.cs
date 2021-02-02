@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Web;
 using System.Web.UI;
@@ -12,7 +13,7 @@ namespace Order
    
       public DataRow combo = null;
       public DataTable itemList = null;
-      public DataTable delivDate = null;
+      public DataTable delivDate = new DataTable();
    
       protected void Page_Init(object sender, EventArgs e)
       {
@@ -45,17 +46,10 @@ namespace Order
                ELSE ''
             END AS ""新商品""
             FROM ""MW030得意先商品""
-            INNER JOIN ""MW035商品画像"" 
+            LEFT JOIN ""MW035商品画像"" 
             ON ""MW030得意先商品"".""自社商品CD"" = ""MW035商品画像"".""自社商品CD"" ";
          
          sql += @"ORDER BY """ + (string)Request.Form["order"]  + @""" ASC ; ";
-         
-         sql += @"
-            SELECT 
-            
-            FROM ""MW020得意先店舗"" 
-            WHERE ""得意先CD"" = '" + (string)Request.Form["branch"] + @"' 
-            AND ""店舗CD"" = '" + (string)Request.Form["store"] + @"' ;";
          
          var db = new DB(sql);
          var ds = new DataSet();
@@ -67,14 +61,15 @@ namespace Order
             db.adp.Fill(ds);
             itemList = ds.Tables[0];
          }
-         
-         delivDate = currentWeek();
-         
+         setCloseTime();
       }
       
-      protected DataTable currentWeek()
+      protected void setCloseTime()
       {
-         var intWeek = (int)DateTime.Now.DayOfWeek - 1;
+         var orderDate = 0;
+         /* 現在曜日(int) */
+         var currentWeek = (int)DateTime.Now.DayOfWeek - 1;
+         /* 曜日オブジェクトのために Length = 7 固定のテーブルに分割取得 */
          var sql = @"
             SELECT ""注文曜日月"", ""注文曜日火"", ""注文曜日水"", ""注文曜日木"", ""注文曜日金"", ""注文曜日土"", ""注文曜日日""
             FROM ""MW020得意先店舗""
@@ -94,80 +89,113 @@ namespace Order
             AND ""得意先CD"" = '" + (string)Request.Form["branch"] + @"' 
             AND ""店舗CD"" = '" + (string)Request.Form["store"] + @"' ;";
          
-         DataTableCollection dt;
          var db = new DB(sql);
          var ds = new DataSet();
-         var step = false;
-         var tbl = new DataTable();
-         var offset = 0;
-         var actWeek = 0;
-         var deliv = 0;
+         var weeks = new List<WeekObj>();
+         DataTableCollection dt;
          
          using(db.adp)
          {
             db.adp.Fill(ds);
             dt = ds.Tables;
          }
+         /* weeks[0] に ダミーオブジェクト挿入 */
+         weeks.Add(new WeekObj());
          
-         /* 現在曜日の締時間の判定 */
-         if(int.Parse((string)dt[0].Rows[0][intWeek]) == 1)
-         {
-            var time = DateTime.Now;
-            
-            if(time > (DateTime)dt[1].Rows[0][intWeek])
-            {
-               intWeek++;
-               step = true;
-            }
-            else
-            {
-               actWeek = intWeek;
-               step = false;
-               deliv = int.Parse((string)dt[2].Rows[0][intWeek]);
-               Response.Write(deliv);
-            }
+         /* 各曜日オブジェクト生成 */
+         for(var i = 1; i <= 7; i++){
+            weeks.Add( new WeekObj(){
+               seq = i,
+               str = Week.str[i],
+               close = dt[1].Rows[0][i - 1],
+               flag = dt[0].Rows[0][i - 1],
+               deliv = dt[2].Rows[0][i - 1]
+            });
          }
          
-         /* 次の注文曜日が1でフラグが立っている場所を取得 */
-         if(step){
-            for(var i = 0; i < 7; i++)
-            {
-               var idx = (i + intWeek) % 6;
-               if(dt[0].Rows[0][idx] != DBNull.Value){
-                  if(int.Parse((string)dt[0].Rows[0][idx]) == 1)
-                  {
-                     actWeek = idx;
-                     deliv = int.Parse((string)dt[2].Rows[0][idx]);
-                     break;
-                  }
-               }
-            }
-         }
-         
-         /* 発注日付から納品日を加算 */
+         /* 現在曜日含め、翌締日時算出 */
          for(var i = 1; i <= 7; i++)
          {
-            if((intWeek + i) % 7 == deliv){
-               offset = i;
-               if(step == false){
-                  offset--;
-               }
+            var idx = currentWeek + i % 7;
+            setCloseDate(weeks[idx], i - 1);
+            if(checkOrderWeek(weeks[idx]))
+            {
+               orderDate = idx;
                break;
             }
          }
          
-         tbl.Columns.Add("発注日", Type.GetType("System.DateTime"));
-         tbl.Columns.Add("加算日", Type.GetType("System.Int32"));
-         tbl.Columns.Add("納品日", Type.GetType("System.DateTime"));
+         /* 割り出した締日時から納品日算出 */
+         for(var i = 1; i <= 7; i++)
+         {
+            var idx = (orderDate + (i - 1)) % 7;
+            if(idx == int.Parse(weeks[orderDate].deliv.ToString()))
+            {
+               var add = i - 1;
+               var date = (DateTime)weeks[orderDate].day.AddDays(add);
+               weeks[orderDate].delivDate = date;
+               break;
+            }
+         }
          
-         var orderDate = DateTime.Now.Add(new TimeSpan(actWeek, 0, 0 , 0));
-         var row = tbl.NewRow();
-         row["発注日"] = orderDate;
-         row["加算日"] = offset;
-         row["納品日"] = DateTime.Now.Add(new TimeSpan(offset, 0, 0, 0));
-         tbl.Rows.Add(row);
+         /* 曜日情報を格納するメモリテーブル */
+         delivDate.Columns.Add("発注日", Type.GetType("System.DateTime"));
+         delivDate.Columns.Add("納品日", Type.GetType("System.DateTime"));
          
-         return tbl;
+         var row = delivDate.NewRow();
+         row["発注日"] = (DateTime)weeks[orderDate].day;
+         row["納品日"] = (DateTime)weeks[orderDate].delivDate;
+         delivDate.Rows.Add(row);
+         
+         
       }
+      
+      protected void setCloseDate(WeekObj obj, int offset)
+      {
+         if(obj.flag != DBNull.Value)
+         {
+            if((string)obj.flag == "1")
+            {
+               var d = (DateTime)obj.close;
+               obj.day = d.AddDays(offset);
+            }
+         }
+      }
+      
+      protected bool checkOrderWeek(WeekObj obj)
+      {
+         if(obj.flag != DBNull.Value)
+         {
+            if((string)obj.flag == "1")
+            {
+               if((DateTime)obj.day > DateTime.Now)
+               {
+                  return true;
+               }else{
+                  return false;
+               }
+            }
+            else{
+               return false;
+            }
+         }
+         else
+         {
+            return false;
+         }
+      }
+   }
+   
+   public class WeekObj
+   {
+      public int seq { get; set; }
+      public string str {get; set; }
+      public DateTime day { get; set; }
+      public DateTime delivDate { get; set; }
+      
+      /* 正しいキャストで入力したかったけど、 DB null が邪魔をしてくるのでobject型でテーブルのセルごと代入 */
+      public object close { get; set; }
+      public object flag { get; set; }
+      public object deliv { get; set; }
    }
 }

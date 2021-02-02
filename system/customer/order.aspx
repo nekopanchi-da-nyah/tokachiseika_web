@@ -2,16 +2,22 @@
 <%@ MasterType VirtualPath="page.master" %>
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
+            <script src="program/order.js"></script>
             <div id="order" class="inner">
                <h2>商品注文画面</h2>
                <form runat="server">
-                  <p><%= Session["お客様名称"] %></p>
+                  <div class="row">
+                     <p><%= Session["お客様名称"] %></p>
+                     <% if(delivDate.Rows.Count != 0){ %>
+                     <p>発注締日時: <span><%= delivDate.Rows[0]["発注日"] %></span></p>
+                     <% } %>
+                  </div>
                   <div class="row">
                      <div>
                         <div class="userinfo">
                            <ul>
                               <li>
-                                 <label>発注元</label>
+                                 <label class="round" data-round="<%= combo["端数処理区分CD"] %>">発注元</label>
                                  <select name="branch">
                                     <% if(combo != null ){ %>
                                     <option value="<%= combo["得意先CD"] %>"><%= combo["得意先名称"] %></option>
@@ -71,7 +77,10 @@
                      </div>
                   </div>
                   
-                  
+                  <div class="total">
+                     <p>注文合計</p>
+                     <p id="total"></p>
+                  </div>
                   
                </form>
                
@@ -83,44 +92,52 @@
                         <% if( itemList.Rows.Count > 0 ){ %>
                         <% for( var i = 0; i < itemList.Rows.Count; i++ ){ %>
                         <li>
-                           <div class="left">
-                              <div class="upper">
-                                 <p class="item_name"><%= (string)itemList.Rows[i]["得意先商品名"] %></p>
-                              </div>
-                              <div class="lower">
-                                 <p class="item_unit"></p>
-                                 <p class="unit_guid"></p>
-                                 <p class="item_new"><%= (string)itemList.Rows[i]["新商品"] %></p>
-                              </div>
+                           <div class="upper">
+                              <p class="item_name"><%= (string)itemList.Rows[i]["得意先商品名"] %></p>
                            </div>
-                           
-                           <div class="middle">
+                           <div class="flex">
                               <div class="image">
                                  <figure>
-                                    <img src="<%= Master.uploadPath + (string)itemList.Rows[i]["画像名"] %>">
+                                    <% if( itemList.Rows[i]["画像名"] != DBNull.Value){ %>
+                                    <img src="<%= Master.uploadPath + itemList.Rows[i]["画像名"] %>">
+                                    <% }else{ %>
+                                    <img src="<%= Master.uploadPath %>/noimage.png">
+                                    <% } %>
                                  </figure>
                               </div>
-                              <div class="upper">
-                                 <p class="item_code">(<%= (string)itemList.Rows[i]["得意先商品CD"] %>)</p>
-                                 <p class="standard">規格: <%= (string)itemList.Rows[i]["商品規格1"] %></p>
+                              
+                              <div class="left">
+                                 <div class="lower">
+                                    <p class="item_unit"></p>
+                                    <p class="unit_guid"></p>
+                                    <p class="item_new"><%= (string)itemList.Rows[i]["新商品"] %></p>
+                                 </div>
                               </div>
-                              <div class="lower">
-                                 <% if( delivDate.Rows.Count > 0 ){ %>
-                                 <dl>
-                                    <dt>注文日</dt>
-                                    <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDate.Rows[0]["発注日"] ) %></dd>
-                                    <dt>納品日</dt>
-                                    <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDate.Rows[0]["納品日"] ) %></dd>
-                                 </dl>
-                                 <% } %>
-                                 <p class="item_price" data-value="<%= String.Format("{0:#.#0}", itemList.Rows[i]["下代単価"]) %>">＠<%= String.Format("{0:#,###.#0}", itemList.Rows[i]["下代単価"]) %>(税抜)</p>
-                              </div>
-                           </div>
-                           <div>
-                              <input type="number" min="0" name="<%= (string)itemList.Rows[i]["自社商品CD"] %>">
-                              <div class="culc">
-                                 <p>金額</p>
-                                 <p><span></span></p>
+                              
+                              <div class="right">
+                                 <div class="upper">
+                                    <p class="item_code">(<%= itemList.Rows[i]["得意先商品CD"] %>)</p>
+                                    <p class="standard">規格: <%= itemList.Rows[i]["商品規格2"] %></p>
+                                 </div>
+                                 <div class="lower">
+                                    <% if( delivDate.Rows.Count > 0 ){ %>
+                                    <dl>
+                                       <dt>注文日</dt>
+                                       <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDate.Rows[0]["発注日"] ) %></dd>
+                                       <dt>納品日</dt>
+                                       <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDate.Rows[0]["納品日"] ) %></dd>
+                                    </dl>
+                                    <% } %>
+                                    <p class="item_price" data-value="<%= String.Format("{0:#.#0}", itemList.Rows[i]["売上単価"]) %>">＠<%= String.Format("{0:#,###.#0}", itemList.Rows[i]["売上単価"]) %>(税抜)</p>
+                                    <div class="inputs">
+                                       <label>数量</label>
+                                       <input type="number" min="0" name="<%= (string)itemList.Rows[i]["自社商品CD"] %>">
+                                       <div class="culc">
+                                          <p>金額</p>
+                                          <p><span class="calc_out"></span></p>
+                                       </div>
+                                    </div>
+                                 </div>
                               </div>
                            </div>
                         </li>
@@ -128,7 +145,7 @@
                         <% } %>
                      </ul>
                   </div>
-                  <div>
+                  <div class="btn">
                      <button name="submit" value="confirm">確認</button>
                   </div>
                </div>
