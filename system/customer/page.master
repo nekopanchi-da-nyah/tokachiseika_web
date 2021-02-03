@@ -5,7 +5,7 @@
 <title>とかち製菓WEB発注システム</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link rel="stylesheet" href="<%= home %>/assets/css/style.css">
+<!--<link rel="stylesheet" href="<%= home %>/assets/css/style.css">-->
 <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body class="user">

@@ -15,6 +15,7 @@ namespace PageMaster
       
       public void Page_Init(object sender, EventArgs e)
       {
+         Session.Timeout = 60;
          if(Request.Form["logout"] == "ログアウト")
          {
             FormsAuthentication.SignOut();
@@ -22,7 +23,7 @@ namespace PageMaster
          }
          else
          {
-            if(HttpContext.Current.User.Identity.IsAuthenticated == false)
+            if(HttpContext.Current.User.Identity.IsAuthenticated == false || Session["担当者CD"] == null)
             {
                Response.Redirect("/");
             }

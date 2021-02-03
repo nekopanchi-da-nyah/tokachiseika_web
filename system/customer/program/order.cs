@@ -34,12 +34,16 @@ namespace Order
             if(dt.Rows.Count > 0)
             {
                combo = dt.Rows[0];
+               Session["端数処理区分CD"] = combo["端数処理区分CD"];
             }
          }
       }
       
       protected void Search_Click(object sender, EventArgs e)
       {
+         Session["発注得意先CD"] = (string)Request.Form["branch"];
+         Session["発注納品先CD"] = (string)Request.Form["store"];
+         
          var sql = @"
             SELECT * , 
             CASE WHEN (""MW030得意先商品"".""登録年月日"" + 14) >= current_date THEN '新商品' 
@@ -47,7 +51,10 @@ namespace Order
             END AS ""新商品""
             FROM ""MW030得意先商品""
             LEFT JOIN ""MW035商品画像"" 
-            ON ""MW030得意先商品"".""自社商品CD"" = ""MW035商品画像"".""自社商品CD"" ";
+            ON ""MW030得意先商品"".""自社商品CD"" = ""MW035商品画像"".""自社商品CD"" 
+            WHERE ""お客様CD"" = '" + Session["お客様CD"] + @"' 
+            AND ""得意先CD"" = '" + Session["得意先CD"]  + @"' 
+            AND ""納品先CD"" = '" + Session["発注納品先CD"] + @"' "; 
          
          sql += @"ORDER BY """ + (string)Request.Form["order"]  + @""" ASC ; ";
          
@@ -64,7 +71,7 @@ namespace Order
          setCloseTime();
       }
       
-      protected void setCloseTime()
+      public void setCloseTime()
       {
          var orderDate = 0;
          /* 現在曜日(int) */
@@ -74,20 +81,20 @@ namespace Order
             SELECT ""注文曜日月"", ""注文曜日火"", ""注文曜日水"", ""注文曜日木"", ""注文曜日金"", ""注文曜日土"", ""注文曜日日""
             FROM ""MW020得意先店舗""
             WHERE ""お客様CD"" = '" + (string)Session["お客様CD"] + @"' 
-            AND ""得意先CD"" = '" + (string)Request.Form["branch"] + @"' 
-            AND ""店舗CD"" = '" + (string)Request.Form["store"] + @"' ; 
+            AND ""得意先CD"" = '" + (string)Session["発注得意先CD"] + @"' 
+            AND ""店舗CD"" = '" + (string)Session["発注納品先CD"] + @"' ; 
 
             SELECT current_date +  ""注文締時間月"", current_date +  ""注文締時間火"", current_date + ""注文締時間水"", current_date + ""注文締時間木"", current_date + ""注文締時間金"", current_date + ""注文締時間土"", current_date + ""注文締時間日"" 
             FROM ""MW020得意先店舗""
             WHERE ""お客様CD"" = '" + (string)Session["お客様CD"] + @"' 
-            AND ""得意先CD"" = '" + (string)Request.Form["branch"] + @"' 
-            AND ""店舗CD"" = '" + (string)Request.Form["store"] + @"' ; 
+            AND ""得意先CD"" = '" + (string)Session["発注得意先CD"] + @"' 
+            AND ""店舗CD"" = '" + (string)Session["発注納品先CD"] + @"' ; 
             
             SELECT ""納品曜日月"", ""納品曜日火"", ""納品曜日水"", ""納品曜日木"", ""納品曜日金"", ""納品曜日土"", ""納品曜日日""
             FROM ""MW020得意先店舗""
             WHERE ""お客様CD"" = '" + (string)Session["お客様CD"] + @"' 
-            AND ""得意先CD"" = '" + (string)Request.Form["branch"] + @"' 
-            AND ""店舗CD"" = '" + (string)Request.Form["store"] + @"' ;";
+            AND ""得意先CD"" = '" + (string)Session["発注得意先CD"] + @"' 
+            AND ""店舗CD"" = '" + (string)Session["発注納品先CD"] + @"' ; ";
          
          var db = new DB(sql);
          var ds = new DataSet();

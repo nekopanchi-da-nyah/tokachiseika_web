@@ -70,4 +70,5 @@ namespace JfosLib
          { 7, "日" }
       };
    }
+   
 }

@@ -78,63 +78,65 @@
                   </div>
                   
                   <div class="total">
-                     <p>注文合計</p>
-                     <p id="total"></p>
+                     <div>
+                        <p>注文合計</p>
+                        <p id="total"></p>
+                     </div>
                   </div>
                   
                </form>
                
                <% if(itemList != null){ %>
                <div class="output">
-                  <form method="POST" action="confirm.aspx">
+                  <form method="POST" action="confirm.aspx" id="confirm">
                   <div>
                      <ul>
                         <% if( itemList.Rows.Count > 0 ){ %>
                         <% for( var i = 0; i < itemList.Rows.Count; i++ ){ %>
                         <li>
-                           <div class="upper">
-                              <p class="item_name"><%= (string)itemList.Rows[i]["得意先商品名"] %></p>
+                           <div class="image">
+                              <figure>
+                                 <% if( itemList.Rows[i]["画像名"] != DBNull.Value){ %>
+                                 <img src="../../upload/img/<%= itemList.Rows[i]["画像名"] %>">
+                                 <% }else{ %>
+                                 <img src="../../upload/img/noimage.png">
+                                 <% } %>
+                              </figure>
                            </div>
-                           <div class="flex">
-                              <div class="image">
-                                 <figure>
-                                    <% if( itemList.Rows[i]["画像名"] != DBNull.Value){ %>
-                                    <img src="<%= Master.uploadPath + itemList.Rows[i]["画像名"] %>">
-                                    <% }else{ %>
-                                    <img src="<%= Master.uploadPath %>/noimage.png">
-                                    <% } %>
-                                 </figure>
+                           <div class="box">
+                              <div class="upper">
+                                 <p class="item_name"><% if(itemList.Rows[i]["新商品"] != ""){ %><span class="newitem"><%= itemList.Rows[i]["新商品"] %></span><% } %><%= (string)itemList.Rows[i]["得意先商品名"] %></p>
                               </div>
-                              
-                              <div class="left">
-                                 <div class="lower">
-                                    <p class="item_unit"></p>
-                                    <p class="unit_guid"></p>
-                                    <p class="item_new"><%= (string)itemList.Rows[i]["新商品"] %></p>
+                              <div class="flex">
+                                 <div class="left">
+                                    <div class="lower">
+                                       <p class="item_unit"></p>
+                                       <p class="unit_guid"></p>
+                                    </div>
                                  </div>
-                              </div>
-                              
-                              <div class="right">
-                                 <div class="upper">
-                                    <p class="item_code">(<%= itemList.Rows[i]["得意先商品CD"] %>)</p>
-                                    <p class="standard">規格: <%= itemList.Rows[i]["商品規格2"] %></p>
-                                 </div>
-                                 <div class="lower">
-                                    <% if( delivDate.Rows.Count > 0 ){ %>
-                                    <dl>
-                                       <dt>注文日</dt>
-                                       <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDate.Rows[0]["発注日"] ) %></dd>
-                                       <dt>納品日</dt>
-                                       <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDate.Rows[0]["納品日"] ) %></dd>
-                                    </dl>
-                                    <% } %>
-                                    <p class="item_price" data-value="<%= String.Format("{0:#.#0}", itemList.Rows[i]["売上単価"]) %>">＠<%= String.Format("{0:#,###.#0}", itemList.Rows[i]["売上単価"]) %>(税抜)</p>
-                                    <div class="inputs">
-                                       <label>数量</label>
-                                       <input type="number" min="0" name="<%= (string)itemList.Rows[i]["自社商品CD"] %>">
-                                       <div class="culc">
-                                          <p>金額</p>
-                                          <p><span class="calc_out"></span></p>
+                                 
+                                 <div class="right">
+                                    <div class="upper">
+                                       <p class="item_code">(<%= itemList.Rows[i]["得意先商品CD"] %>)</p>
+                                       <p class="standard">規格: <%= itemList.Rows[i]["商品規格2"] %></p>
+                                    </div>
+                                    <div class="lower">
+                                       <% if( delivDate.Rows.Count > 0 ){ %>
+                                       <dl>
+                                          <dt>注文日</dt>
+                                          <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDate.Rows[0]["発注日"] ) %></dd>
+                                          <dt>納品日</dt>
+                                          <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDate.Rows[0]["納品日"] ) %></dd>
+                                       </dl>
+                                       <% } %>
+                                       <p class="item_price" data-value="<%= String.Format("{0:#.#0}", itemList.Rows[i]["売上単価"]) %>">＠<%= String.Format("{0:#,###.#0}", itemList.Rows[i]["売上単価"]) %>(税抜)</p>
+                                       <div class="inputs">
+                                          <label>数量</label>
+                                          <input type="number" min="0" name="<%= (string)itemList.Rows[i]["得意先商品CD"] %>" tabindex="<%= i + 1 %>" value="<%= Request.Form[(string)itemList.Rows[i]["得意先商品CD"]] %>">
+                                          <div class="culc">
+                                             <p>金額</p>
+                                             <p style="width: 4rem; text-align: right; font-weight: bold;"><span class="calc_out"></span></p>
+                                          </div>
                                        </div>
                                     </div>
                                  </div>

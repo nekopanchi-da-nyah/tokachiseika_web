@@ -41,7 +41,7 @@ namespace Login
             */
             if(dt.Rows[0]["PASSWORD"].ToString() == pass)
             {
-               if(dt.Rows[0]["お客様CD"].ToString() == "0001")
+               if(dt.Rows[0]["担当者CD"].ToString() == "admin")
                {
                   Session["role"] = "Admin";
                }
