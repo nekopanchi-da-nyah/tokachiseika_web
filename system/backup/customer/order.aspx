@@ -1,18 +1,8 @@
-<%@ Page language="C#" masterpagefile="page.master" codefile="program/order.cs" inherits="Order.Program" %>
+<%@ Page language="C#" masterpagefile="page.master" codefile="program/order.cs" inherits="OrderPage.Program" %>
 <%@ MasterType VirtualPath="page.master" %>
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
             <script src="program/order.js"></script>
-            <script>
-            function check(){
-               if(window.confirm('注文を確定します。よろしいですか？')){ // 確認ダイアログを表示
-                  return true; // 「OK」時は送信を実行
-               }else{ // 「キャンセル」時の処理
-                  window.alert('キャンセルされました'); // 警告ダイアログを表示
-                  return false; // 送信を中止
-               }
-            }
-            </script>
             <div id="order" class="inner">
                <h2>商品注文画面</h2>
                <form runat="server">
@@ -97,10 +87,13 @@
                </form>
                
                <% if(itemList != null){ %>
+               <% if(Session["posts"] != null){ %>
+               <script>
+               </script>
+               <% } %>
                <div class="output">
-                  <form method="POST" action="confirm.aspx" id="confirm" onSubmit="return check()">
+                  <form method="POST" action="confirm.aspx" id="confirm">
                   <div>
-                     <p>対象件数は <span><%= itemList.Rows.Count %></span>件です</p>
                      <ul>
                         <% if( itemList.Rows.Count > 0 ){ %>
                         <% for( var i = 0; i < itemList.Rows.Count; i++ ){ %>
@@ -143,10 +136,10 @@
                                        <p class="item_price" data-value="<%= String.Format("{0:#.#0}", itemList.Rows[i]["売上単価"]) %>">＠<%= String.Format("{0:#,###.#0}", itemList.Rows[i]["売上単価"]) %>(税抜)</p>
                                        <div class="inputs">
                                           <label>数量</label>
-                                          <input type="number" min="0" name="<%= (string)itemList.Rows[i]["得意先商品CD"] %>" tabindex="<%= i + 1 %>" value="<%= itemList.Rows[i]["数量"] %>">
+                                          <input type="number" min="0" name="<%= (string)itemList.Rows[i]["得意先商品CD"] %>" tabindex="<%= i + 1 %>" value="<%= Request.Form[(string)itemList.Rows[i]["得意先商品CD"]] %>">
                                           <div class="culc">
                                              <p>金額</p>
-                                             <p style="width: 4rem; text-align: right; font-weight: bold;"><span class="calc_out"><%= String.Format("{0: #,###.00}", itemList.Rows[i]["売上金額"]) %></span></p>
+                                             <p style="width: 4rem; text-align: right; font-weight: bold;"><span class="calc_out"></span></p>
                                           </div>
                                        </div>
                                     </div>

@@ -6,7 +6,7 @@
                <h2>注文確認画面</h2>
                <div class="output">
                   <p style="text-align: center; font-size: 1.1rem; color: #f00; ">
-                     <strong>以下の内容で注文いたしました。<br>注文内容ご確認ください。</strong>
+                     <strong>以下の内容で注文いたします。<br>注文内容ご確認ください。</strong>
                   </p>
                   <ul>
                      <% for(var i = 0; i < orderList.Count; i++){ %>
@@ -42,7 +42,7 @@
                                     <p class="item_price" data-value="<%= String.Format("{0:#.#0}", orderList[i].decSalesUnit) %>">＠<%= String.Format("{0:#.#0}", orderList[i].decSalesUnit) %>(税抜)</p>
                                     <div class="inputs">
                                        <label>数量</label>
-                                       <p style="width: 2rem; text-align: right; font-weight: bold; margin-right: 1rem;"><%= orderList[i].decUnit %></p>
+                                       <p style="width: 2rem; text-align: right; font-weight: bold; margin-right: 1rem;"><%= orderList[i].intUnit %></p>
                                        <div class="culc">
                                           <p>金額</p>
                                           <p style="width: 4rem; text-align: right; font-weight: bold;"><span class="calc_out"><%= String.Format("{0:#.#0}", orderList[i].decSales) %></span></p>
@@ -56,15 +56,17 @@
                      <% } %>
                   </ul>
                </div>
-               <div class="total">
-                  <div>
-                     <p>注文合計</p>
-                     <p id="total"><%= String.Format("{0: #,###}", total) %></p>
+               <form runat="server">
+                  <div class="total">
+                     <div>
+                        <p>注文合計</p>
+                        <p id="total"><%= String.Format("{0: #,###}", total) %></p>
+                     </div>
                   </div>
-               </div>
-               <div class="btns">
-                  <a href="/">HOMEに戻る</a>
-                  <a href="order.aspx">発注画面に戻る</a>
-               </div>
+                  <div class="btns">
+                     <a href="javascript:history.back()">戻る</a>
+                     <asp:button runat="server" text="発注確定"></asp:button>
+                  </div>
+               </form>
             </div>
 </asp:Content>

@@ -41,38 +41,30 @@ namespace Order
       
       protected void Search_Click(object sender, EventArgs e)
       {
-         Session["発注得意先CD"] = (string)Request.Form["branch"];
-         Session["発注納品先CD"] = (string)Request.Form["store"];
-         setCloseTime();
          setItemList();
-         setOrderUnit();
+         setCloseTime();
       }
       
       public void setItemList()
       {
+         Session["発注得意先CD"] = (string)Request.Form["branch"];
+         Session["発注納品先CD"] = (string)Request.Form["store"];
+         
          
          var sql = @"
             SELECT * , 
-            CASE WHEN (t1.""登録年月日"" + 14) >= current_date THEN '新商品' 
+            CASE WHEN (""MW030得意先商品"".""登録年月日"" + 14) >= current_date THEN '新商品' 
                ELSE ''
             END AS ""新商品""
-            FROM ""MW030得意先商品"" AS t1
-            LEFT JOIN ""MW035商品画像"" AS t2
-            ON t1.""自社商品CD"" = t2.""自社商品CD"" 
-            LEFT JOIN
-            (
-               SELECT * FROM ""DW010注文明細"" 
-               WHERE ""お客様CD"" = '" + Session["お客様CD"] + @"' 
-               AND ""得意先CD"" = '" + Session["発注得意先CD"]  + @"' 
-               AND ""納品先CD"" = '" + Session["発注納品先CD"] + @"'
-               AND ""注文年月日"" = '" + ((DateTime)delivDate.Rows[0]["発注日"]).ToString("yyyy-MM-dd") + @"' 
-               
-            ) AS q1 ON t1.""得意先商品CD"" = q1.""相手商品CD"" 
-            WHERE t1.""お客様CD"" = '" + Session["お客様CD"] + @"' 
-            AND t1.""得意先CD"" = '" + Session["得意先CD"]  + @"' 
-            AND t1.""納品先CD"" = '" + Session["発注納品先CD"] + @"' "; 
+            FROM ""MW030得意先商品""
+            LEFT JOIN ""MW035商品画像"" 
+            ON ""MW030得意先商品"".""自社商品CD"" = ""MW035商品画像"".""自社商品CD"" 
+            WHERE ""お客様CD"" = '" + Session["お客様CD"] + @"' 
+            AND ""得意先CD"" = '" + Session["得意先CD"]  + @"' 
+            AND ""納品先CD"" = '" + Session["発注納品先CD"] + @"' "; 
          
          sql += @"ORDER BY """ + (string)Request.Form["order"]  + @""" ASC ; ";
+         
          var db = new DB(sql);
          var ds = new DataSet();
          var dt = new DataTable();
@@ -83,10 +75,6 @@ namespace Order
             db.adp.Fill(ds);
             itemList = ds.Tables[0];
          }
-      }
-      
-      public void setOrderUnit(){
-         
       }
       
       public void setCloseTime()

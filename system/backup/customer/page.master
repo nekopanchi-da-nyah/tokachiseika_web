@@ -1,0 +1,34 @@
+<%@ master language="C#" codefile="program/pagemaster.cs" inherits="PageMaster.Program" %>
+<!DOCTYPE>
+<html lang="ja">
+<head>
+<title>とかち製菓WEB発注システム</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!--<link rel="stylesheet" href="<%= home %>/assets/css/style.css">-->
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="user">
+   <header>
+      <div class="inner">
+         <h1><a href="/">とかち製菓WEB発注</a></h1>
+         <div style="text-align: center">
+            <p><%= (string)Session["担当者名"] %></p>
+            <form method="POST" class="logout">
+               <input name="logout" type="submit" value="ログアウト" />
+            </form>
+         </div>
+      </div>
+   </header>
+   <main>
+      <article>
+         <div class="inner">
+            <p><%= DateTime.Now %></p>
+         </div>
+         <div id="main_container" class="user_account">
+            <asp:ContentPlaceHolder id="content" runat="server"></asp:ContentPlaceHolder>
+         </div>
+      </article>
+   </main>
+</body>
+</html>

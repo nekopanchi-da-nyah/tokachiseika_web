@@ -6,24 +6,24 @@ using System.Web;
 using System.Web.UI;
 using Npgsql;
 using JfosLib;
+using OrderLib;
 
 namespace Confirm
 {
    public partial class Program : Page
    {
+      public Dictionary<string, OrderLib.Order> orderList;
       protected List<Post> postList = new List<Post>();
-      protected List<Order> orderList = new List<Order>();
-      protected List<OrderDateObj> orderDateList;
+      protected List<OrderDateObj> orderDateList = new List<OrderDateObj>();
       protected AdminSequence adm = new AdminSequence();
       protected decimal total = 0;
-      protected int addSeq = 0;
       
       protected void Page_Init(object sender, EventArgs e)
       {
          postOrganaize();
          orderDateList = setCloseTime();
          setItem();
-         insertOrder();
+         Session["posts"] = postList;
       }
       
       protected void postOrganaize()
@@ -39,7 +39,7 @@ namespace Confirm
             {
                postList.Add(new Post(){
                   code = key,
-                  unit = decimal.Parse(value),
+                  unit = int.Parse(value),
                });
             }
          }
@@ -48,26 +48,12 @@ namespace Confirm
       protected void setItem()
       {
          var sql = @"
-            SELECT * , COALESCE( q1.""管理番号"", '') AS ""COA管理番号"" , 
-            CASE WHEN (t1.""登録年月日"" + 14) >= current_date THEN '新商品' 
-               ELSE ''
-            END AS ""新商品""
-            FROM ""MW030得意先商品"" AS t1
-            LEFT JOIN ""MW035商品画像"" AS t2
-            ON t1.""自社商品CD"" = t2.""自社商品CD"" 
-            LEFT JOIN
-            (
-               SELECT * FROM ""DW010注文明細"" 
-               WHERE ""お客様CD"" = '" + Session["お客様CD"] + @"' 
-               AND ""得意先CD"" = '" + Session["発注得意先CD"]  + @"' 
-               AND ""納品先CD"" = '" + Session["発注納品先CD"] + @"'
-               AND ""注文年月日"" = '" + (orderDateList[0].order).ToString("yyyy-MM-dd") + @"' 
-            ) AS q1 ON t1.""得意先商品CD"" = q1.""相手商品CD"" 
-            WHERE t1.""お客様CD"" = '" + Session["お客様CD"] + @"' 
-            AND t1.""得意先CD"" = '" + Session["発注得意先CD"]  + @"' 
-            AND t1.""納品先CD"" = '" + Session["発注納品先CD"] + @"' "; 
-         
-         
+            SELECT * FROM ""MW030得意先商品""
+            LEFT JOIN ""MW035商品画像"" ON ""MW030得意先商品"".""自社商品CD"" = ""MW035商品画像"".""自社商品CD"" 
+            WHERE ""お客様CD"" = '" + Session["お客様CD"] + @"' 
+            AND ""得意先CD"" = '" + Session["得意先CD"]  + @"' 
+            AND ""納品先CD"" = '" + Session["発注納品先CD"] + @"' ; ";
+            
          var db = new DB(sql);
          var ds = new DataSet();
          var dt = new DataTable();
@@ -93,18 +79,9 @@ namespace Confirm
                }
                
                total += sales;
-               var seq = "";
-               if(row["COA管理番号"] == "")
-               {
-                  seq = String.Format("{0: 000000000}", adm.seq++ );
-               }
-               else
-               {
-                  seq = (string)row["管理番号"];
-               }
                
-               orderList.Add(new Order(){
-                  strAdminSeq = seq,
+               orderList.Add(post.code, new Order(){
+                  strAdminSeq = String.Format("{0: 000000000}", adm.seq++ ),
                   strAdminRow = "00",
                   intSlip = 1,
                   strCustomerCD = (string)Session["お客様CD"],
@@ -120,10 +97,9 @@ namespace Confirm
                   strClientItemCD = (string)row["得意先商品CD"],
                   strItemName = (string)row["得意先商品名"],
                   strChangeLate = (string)row["発注換算数"],
-                  strClientItemName = (string)row["得意先商品名"],
                   //strUnit = 
-                  decUnit = decimal.Round(post.unit, 2),
-                  decSalesUnit = decimal.Round((decimal)row["売上単価"], 2),
+                  intUnit = post.unit,
+                  decSalesUnit = (decimal)row["売上単価"],
                   decSales = sales,
                   strImageName = img
                });
@@ -145,85 +121,12 @@ namespace Confirm
                break;
          }
          
-         total = decimal.Round(total, 2);
-         Response.Write(total);
-         // Session["orderList"] = orderList;
+         Session["orderList"] = orderList;
 
       }
       
       protected void insertOrder(){
-         var sql = @"
-            SELECT ""管理番号"", ""管理行番号"", ""お客様CD"", ""伝票種別"", ""得意先CD"", ""店舗CD"", ""納品先CD"", ""換算数"",
-            ""売上金額"", ""注文年月日"", ""納品年月日"", ""商品CD"" , ""商品名"", ""相手商品名"", ""売上単価"", ""相手商品CD"", ""数量"" 
-            FROM ""DW010注文明細"" 
-            WHERE ""お客様CD"" = '" + Session["お客様CD"] + @"' 
-            AND ""得意先CD"" = '" + Session["発注得意先CD"]  + @"' 
-            AND ""納品先CD"" = '" + Session["発注納品先CD"] + @"'
-            AND ""注文年月日"" = '" + orderDateList[0].order.ToString("yyyy-MM-dd") + "' ; ";
          
-         var db = new DB(sql);
-         var ds = new DataSet();
-         var dt = new DataTable();
-         
-         using(db.conn)
-         {
-            db.adp.Fill(ds);
-            dt = ds.Tables[0];
-            dt.PrimaryKey = new DataColumn[] { dt.Columns["管理番号"] };
-            db.conn.Open();
-            var tran = db.conn.BeginTransaction();
-            try
-            {
-               foreach(var order in orderList)
-               {
-                  var row = dt.Rows.Find(order.strAdminSeq);
-                  if(row != null)
-                  {
-                     /*update*/
-                     row["数量"] = order.decUnit;
-                     row["売上金額"] = order.decSales;
-                  }
-                  else
-                  {
-                     row = dt.NewRow();
-                     /*insert*/
-                     row["管理番号"] = order.strAdminSeq;
-                     row["管理行番号"] = order.strAdminRow;
-                     row["伝票種別"] = order.intSlip;
-                     row["お客様CD"] = order.strCustomerCD;
-                     row["得意先CD"] = order.strBranchCD;
-                     row["店舗CD"] = order.strStoreCD;
-                     row["納品先CD"] = order.strDelivCD;
-                     row["注文年月日"] = order.dateOrderDate;
-                     row["納品年月日"] = order.dateDelivDate;
-                     row["商品CD"] = order.strItemCD;
-                     row["相手商品CD"] = order.strClientItemCD;
-                     row["商品名"] = order.strItemName;
-                     row["相手商品名"] = order.strClientItemName;
-                     row["換算数"] = order.strChangeLate;
-                     row["数量"] = order.decUnit;
-                     row["売上単価"] = order.decSalesUnit;
-                     row["売上金額"] = order.decSales;
-                     dt.Rows.Add(row);
-                  }
-               }
-               var ncb = new NpgsqlCommandBuilder(db.adp);
-               db.cmd.Transaction = tran;
-               db.adp.Update(ds);
-               tran.Commit();
-            }
-            catch(Exception ex)
-            {
-               tran.Rollback();
-               Response.Write(ex);
-            }
-            finally
-            {
-               db.conn.Close();
-            }
-         }
-         
-         adm.updateSequence(addSeq);
       }
       
       protected void adminSequence()
@@ -359,33 +262,7 @@ namespace Confirm
    public class Post
    {
       public string code;
-      public decimal unit;
-   }
-   
-   public class Order
-   {
-      public string     strAdminSeq; //10
-      public string     strAdminRow; //2
-      public int        intSlip; //1
-      public string     strCustomerCD; //4
-      public string     strBranchCD; //6
-      public string     strStoreCD; //6
-      public string     strDelivCD;  //6
-      public DateTime   dateOrderDate;
-      public DateTime   dateDelivDate;
-      public string     strLetterCD; 
-      public string     strItemCD;
-      public string     strJAN;
-      public string     strJANCD;
-      public string     strClientItemCD;
-      public string     strItemName;
-      public string     strClientItemName;
-      public string     strChangeLate;
-      public string     strUnit;
-      public decimal    decUnit;
-      public decimal    decSalesUnit;
-      public decimal    decSales;
-      public string     strImageName;
+      public int unit;
    }
    
    public class WeekObj

@@ -43,12 +43,6 @@
       
       for(var i = 0; i < inputs.length; i++){
          holder[i] = 0;
-         if(inputs[i].value != null || inputs[i].value != undefined){
-            var pri = getPrice(i);
-            var uni = Number(inputs[i].value);
-            holder[i] = pri * uni;
-            calcTotal.innerText = formatter.format(sumTotal());
-         }
          (function(i){
             inputs[i].addEventListener('input', function(){
                var pri = getPrice(i);
