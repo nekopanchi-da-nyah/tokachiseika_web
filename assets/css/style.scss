@@ -700,9 +700,58 @@ header{
                 }
             }
         }
-        .btn{
-            text-align: right;
-            margin: 1rem;
+        .btns{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            button{
+                margin: 1.5rem 0 1.5rem 1.5rem;
+                font-size: 1rem;
+                padding: 0.25rem 2rem;
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: center;
+                align-items: center;
+            }
+            button.home{
+                border: none;
+                background: $color;
+                color: #fff;
+                border-radius: 5px;
+            }
+            button.order{
+                border: none;
+                background: $color;
+                color: #fff;
+                border-radius: 5px;
+            }
+            button::before{
+                content: '';
+                display: inline-block;
+                width: 1.5rem;
+                height: 1.5rem;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+                margin-right: 0.5rem;
+            }
+            button.trush::before{
+                background-image: url("../img/trush_icon.png");
+            }
+            button.puls::before{
+                background-image: url("../img/x_icon_b.png");
+                transform: rotate(45deg);
+            }
+            button.end::before{
+                background-image: url("../img/x_icon_r.png");
+            }
+            button.home::before{
+                background-image: url("../img/store_icon.png");
+            }
+            button.order::before{
+                background-image: url("../img/order_icon.png");
+            }
         }
         .total{
             text-align: right;
@@ -735,6 +784,14 @@ header{
                 right: 0;
                 transition: 0.5s;
             }
+        }
+        .createpdf{
+            padding: 0.5rem 1.5rem;
+            font-sizse: 1.1rem;
+        }
+        iframe{
+            width: 100%;
+            height: 800px;
         }
     }
 }

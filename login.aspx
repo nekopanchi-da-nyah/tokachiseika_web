@@ -20,7 +20,6 @@ body{
 form{
    width: max-content;
    padding: 2rem 1rem;
-   margin: auto;
    background: #fff;
    border-radius: 8px;
 }
@@ -48,7 +47,7 @@ table td{
 table label{
    width: 30%;
    background: #58b976;
-   display: flex;
+   display: inline-flex;
    align-items: center;
    justify-content: center;
    color: #fff;

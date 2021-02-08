@@ -8,11 +8,14 @@
    var price;
    var round;
    var roundCD;
+   var formatter = new Intl.NumberFormat();
+   /*
    var formatter = new Intl.NumberFormat('ja', {
       style: 'decimal',
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
    });
+   /*/
    var holder = [];
    var form;
    var eTotal;
@@ -54,8 +57,9 @@
                var pri = getPrice(i);
                var uni = Number(inputs[i].value);
                var subTotal = pri * uni;
-               holder[i] = subTotal;
-               culcOut[i].innerHTML = formatter.format(subTotal);
+               holder[i] = sumRound(subTotal);
+               
+               culcOut[i].innerHTML = formatter.format(holder[i]);
                calcTotal.innerText = formatter.format(sumTotal());
             }, false);
          })(i);
@@ -69,12 +73,31 @@
       return parseFloat(price[int].dataset.value);
    }
    
+   function sumRound(arg){
+      
+      switch(roundCD){
+         case "0": 
+            arg = Math.floor(arg);
+            break;
+         
+         case "1":
+            arg = Math.round(arg);
+            break;
+         
+         case "2":
+            arg = Math.ceil(arg);
+            break;
+      }
+      return arg;
+   }
+   
    function sumTotal(){
       var total = 0;
       for(var i = 0; i < culcOut.length; i++){
          total += holder[i];
       }
       
+      /*
       switch(roundCD){
          case "0": 
             total = Math.floor(total);
@@ -88,12 +111,13 @@
             total = Math.ceil(total);
             break;
       }
+      */
       
       if(total >= 1)
       {
-         confirm_btn.removeAttribute('disabled');
+         button.removeAttribute('disabled');
       }else{
-         confirm_btn.setAttribute('disabled', 'disabled');
+         button.setAttribute('disabled', 'disabled');
       }
       
       return total;

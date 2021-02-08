@@ -1,4 +1,4 @@
-<%@ Page language="C#" masterpagefile="page.master" codefile="program/order.cs" inherits="Order.Program" %>
+<%@ Page language="C#" masterpagefile="page.master" codefile="program/order.cs" inherits="OrderPage.Program" %>
 <%@ MasterType VirtualPath="page.master" %>
 
 <asp:Content ContentPlaceHolderID="content" runat="server">
@@ -18,8 +18,8 @@
                <form runat="server">
                   <div class="row">
                      <p><%= Session["お客様名称"] %></p>
-                     <% if(delivDate.Rows.Count != 0){ %>
-                     <p>発注締日時: <span><%= delivDate.Rows[0]["発注日"] %></span></p>
+                     <% if(closeDay.ToString() != "0001/01/01 0:00:00"){ %>
+                     <p>発注締日時: <span><%= closeDay %></span></p>
                      <% } %>
                   </div>
                   <div class="row">
@@ -49,7 +49,7 @@
                            <ul>
                               <li>
                                  <label>表示順</label>
-                                 <select name="order">
+                                 <select name="orderby">
                                     <option value="得意先商品CD">商品コード</option>
                                  </select>
                               </li>
@@ -132,14 +132,12 @@
                                        <p class="standard">規格: <%= itemList.Rows[i]["商品規格2"] %></p>
                                     </div>
                                     <div class="lower">
-                                       <% if( delivDate.Rows.Count > 0 ){ %>
                                        <dl>
                                           <dt>注文日</dt>
-                                          <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDate.Rows[0]["発注日"] ) %></dd>
+                                          <dd><%= String.Format( "{0:yyyy/MM/dd}", orderDay ) %></dd>
                                           <dt>納品日</dt>
-                                          <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDate.Rows[0]["納品日"] ) %></dd>
+                                          <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDay ) %></dd>
                                        </dl>
-                                       <% } %>
                                        <p class="item_price" data-value="<%= String.Format("{0:#.#0}", itemList.Rows[i]["売上単価"]) %>">＠<%= String.Format("{0:#,###.#0}", itemList.Rows[i]["売上単価"]) %>(税抜)</p>
                                        <div class="inputs">
                                           <label>数量</label>
@@ -158,10 +156,12 @@
                         <% } %>
                      </ul>
                   </div>
-                  <div class="btn">
-                     <button name="submit" value="confirm" id="confirm_btn" disabled>確認</button>
+                  <div class="btns">
+                     <a href="menu.aspx"><button type="button" value="cancel" class="end">戻る</button></a>
+                     <button name="submit" value="confirm" id="confirm_btn" disabled class="puls">発注</button>
                   </div>
                </div>
+               </form>
                <% } %>
             </div>
 </asp:Content>

@@ -750,9 +750,67 @@ header .inner form {
   background: #fff2f6;
 }
 
-.user #order .btn {
-  text-align: right;
-  margin: 1rem;
+.user #order .btns {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.user #order .btns button {
+  margin: 1.5rem 0 1.5rem 1.5rem;
+  font-size: 1rem;
+  padding: 0.25rem 2rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.user #order .btns button.home {
+  border: none;
+  background: #58b976;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.user #order .btns button.order {
+  border: none;
+  background: #58b976;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.user #order .btns button::before {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-right: 0.5rem;
+}
+
+.user #order .btns button.trush::before {
+  background-image: url("../img/trush_icon.png");
+}
+
+.user #order .btns button.puls::before {
+  background-image: url("../img/x_icon_b.png");
+  transform: rotate(45deg);
+}
+
+.user #order .btns button.end::before {
+  background-image: url("../img/x_icon_r.png");
+}
+
+.user #order .btns button.home::before {
+  background-image: url("../img/store_icon.png");
+}
+
+.user #order .btns button.order::before {
+  background-image: url("../img/order_icon.png");
 }
 
 .user #order .total {
@@ -791,6 +849,16 @@ header .inner form {
   top: 0;
   right: 0;
   transition: 0.5s;
+}
+
+.user #order .createpdf {
+  padding: 0.5rem 1.5rem;
+  font-sizse: 1.1rem;
+}
+
+.user #order iframe {
+  width: 100%;
+  height: 800px;
 }
 
 /*# sourceMappingURL=maps/style.css.map */
