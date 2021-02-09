@@ -13,7 +13,7 @@
       <div class="inner">
          <h1><a href="/">とかち製菓WEB発注</a></h1>
          <div style="text-align: center">
-            <p><%= (string)Session["担当者名"] %></p>
+            <p class="login_name">注文担当者 <br><%= (string)Session["担当者名"] %></p>
             <form method="POST" class="logout">
                <input name="logout" type="submit" value="ログアウト" />
             </form>

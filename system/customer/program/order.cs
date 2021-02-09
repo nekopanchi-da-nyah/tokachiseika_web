@@ -55,11 +55,8 @@ namespace OrderPage
       protected DataTable select_Items()
       {
          var sql = @"
-            SELECT * , 
-            CASE WHEN (t1.""登録年月日"" + 14) >= current_date THEN '新商品' 
-               ELSE ''
-            END AS ""新商品""
-            FROM ""MW030得意先商品"" AS t1
+            SELECT * 
+            FROM ""VW得意先商品"" AS t1
             LEFT JOIN ""MW035商品画像"" AS t2
             ON t1.""自社商品CD"" = t2.""自社商品CD"" 
             LEFT JOIN
@@ -69,7 +66,6 @@ namespace OrderPage
                AND ""得意先CD"" = '" + Session["発注得意先CD"]  + @"' 
                AND ""納品先CD"" = '" + Session["発注納品先CD"] + @"'
                AND ""注文年月日"" = '" + orderDay.ToString("yyyy-MM-dd") + @"' 
-               
             ) AS q1 ON t1.""得意先商品CD"" = q1.""相手商品CD"" 
             WHERE t1.""お客様CD"" = '" + Session["お客様CD"] + @"' 
             AND t1.""得意先CD"" = '" + Session["得意先CD"]  + @"' 

@@ -104,7 +104,11 @@
                      <ul>
                         <% if( itemList.Rows.Count > 0 ){ %>
                         <% for( var i = 0; i < itemList.Rows.Count; i++ ){ %>
+                        <% if((string)itemList.Rows[i]["販売停止FLG"] == "1"){ %>
+                        <li class="closeitem">
+                        <% }else{ %>
                         <li>
+                        <% } %>
                            <div class="image">
                               <figure>
                                  <% if( itemList.Rows[i]["画像名"] != DBNull.Value){ %>
@@ -116,7 +120,14 @@
                            </div>
                            <div class="box">
                               <div class="upper">
-                                 <p class="item_name"><% if(itemList.Rows[i]["新商品"] != ""){ %><span class="newitem"><%= itemList.Rows[i]["新商品"] %></span><% } %><%= (string)itemList.Rows[i]["得意先商品名"] %></p>
+                                 <p class="item_name">
+                                    <% if(itemList.Rows[i]["新商品"] != ""){ %>
+                                    <span class="newitem"><%= itemList.Rows[i]["新商品"] %></span>
+                                    <% }else if((string)itemList.Rows[i]["販売停止FLG"] == "1"){ %>
+                                    <span class="closeitem">販売停止商品</span>
+                                    <% } %>
+                                    <%= (string)itemList.Rows[i]["得意先商品名"] %>
+                                 </p>
                               </div>
                               <div class="flex">
                                  <div class="left">
@@ -141,7 +152,11 @@
                                        <p class="item_price" data-value="<%= String.Format("{0:#.#0}", itemList.Rows[i]["売上単価"]) %>">＠<%= String.Format("{0:#,###.#0}", itemList.Rows[i]["売上単価"]) %>(税抜)</p>
                                        <div class="inputs">
                                           <label>数量</label>
-                                          <input type="number" min="0" name="<%= (string)itemList.Rows[i]["得意先商品CD"] %>" tabindex="<%= i + 1 %>" value="<%= itemList.Rows[i]["数量"] %>">
+                                          <% if((string)itemList.Rows[i]["販売停止FLG"] == "1"){ %>
+                                          <input type="number" min="0" name="<%= (string)itemList.Rows[i]["得意先商品CD"] %>" tabindex="<%= i + 1 %>" value="<%= itemList.Rows[i]["数量"] %>" disabled >
+                                          <% }else{ %>
+                                          <input type="number" min="0" name="<%= (string)itemList.Rows[i]["得意先商品CD"] %>" tabindex="<%= i + 1 %>" value="<%= itemList.Rows[i]["数量"] %>" >
+                                          <% } %>
                                           <div class="culc">
                                              <p>金額</p>
                                              <p style="width: 4rem; text-align: right; font-weight: bold;"><span class="calc_out"><%= String.Format("{0: #,###.00}", itemList.Rows[i]["売上金額"]) %></span></p>

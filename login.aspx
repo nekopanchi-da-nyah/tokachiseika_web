@@ -18,7 +18,7 @@ body{
 }
 
 form{
-   width: max-content;
+   width: 280px;
    padding: 2rem 1rem;
    background: #fff;
    border-radius: 8px;
@@ -26,6 +26,7 @@ form{
 
 table{
    width: auto;
+   margin: auto;
 }
 
 table caption{

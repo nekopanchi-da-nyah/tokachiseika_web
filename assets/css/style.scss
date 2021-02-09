@@ -54,6 +54,14 @@ dl, dt, dd{
     margin: auto;
 }
 
+@include mq(sm){
+    h1{
+        a{
+            font-size: 5vw;
+        }
+    }
+}
+
 .breadcrumb{
     div{
         ul{
@@ -84,8 +92,24 @@ header{
             font-size: 1.5rem;
             white-space: nowrap;
         }
+        .login_name{
+            @include mq(sm){
+                font-size: 4vw;
+            }
+            br{
+                display: none;
+                @include mq(sm){
+                    display: block;
+                }
+            }
+        }
         form{
             margin-bottom: 0;
+            @include mq(sm){
+                input{
+                    font-size: 3.5vw;
+                }
+            }
         }
     }
 }
@@ -421,6 +445,11 @@ header{
     background: #fff;
     padding: 2rem;
     border-radius: 10px;
+    width: 90%;
+    box-sizing: border-box;
+    @include mq(sm){
+        padding: 0;
+    }
     h2{
         text-align: center;
         color: $depth;
@@ -433,6 +462,9 @@ header{
             align-items: center;
             margin: auto;
             width: max-content;
+            @include mq(sm){
+                flex-flow: column;
+            }
             li{
                 margin: 1.5rem;
                 figure{
@@ -464,6 +496,9 @@ header{
 
 .user{
     #order{
+        @include mq(sm){
+            padding-bottom: 9vh;
+        }
         form{
             background: #fff;
             padding: 1rem;
@@ -482,6 +517,11 @@ header{
                     color: #c99;
                     font-size: 1.1rem;
                 }
+                @include mq(sm){
+                    >div{
+                        width: 100%;
+                    }
+                }
                 .userinfo{
                     margin-right: 3rem;
                     ul{
@@ -491,6 +531,9 @@ header{
                             flex-flow: row nowrap;
                             justify-content: flex-start;
                             align-items: stretch;
+                            @include mq(sm){
+                                width: 100%;
+                            }
                             label{
                                 width: 120px;
                                 background: $color;
@@ -500,11 +543,17 @@ header{
                                 border-bottom: 1px solid #fff;
                                 border-radius: 5px 0 0 0;
                                 text-align: center;
+                                @include mq(sm){
+                                    width: 30%;
+                                }
                             }
                             select{
                                 width: 15em;
                                 border: 1px solid $color;
                                 border-radius: 0 5px 0 0;
+                                @include mq(sm){
+                                    width: 70%;
+                                }
                             }
                         }
                         li:last-child{
@@ -526,6 +575,9 @@ header{
                             flex-flow: row nowrap;
                             justify-content: flex-start;
                             align-items: stretch;
+                            @include mq(sm){
+                                width: 100%;
+                            }
                             label{
                                 width: 120px;
                                 background: $color;
@@ -534,11 +586,17 @@ header{
                                 padding: 0.25rem;
                                 border-radius: 5px 0 0 5px;
                                 text-align: center;
+                                @include mq(sm){
+                                    width: 30%;
+                                }
                             }
                             select{
                                 width: 15em;
                                 border: 1px solid $color;
                                 border-radius: 0 5px 5px 0;
+                                @include mq(sm){
+                                    width: 70%;
+                                }
                             }
                         }
                     }
@@ -550,6 +608,9 @@ header{
                     flex-flow: row nowrap;
                     justify-content: center;
                     align-items: stretch;
+                    @include mq(sm){
+                        justify-content: flex-start;
+                    }
                     >p{
                         background: $color;
                         display: flex;
@@ -597,6 +658,9 @@ header{
                     flex-flow: row nowrap;
                     justify-content: flex-start;
                     align-items: stretch;
+                    @include mq(sm){
+                        flex-flow: row wrap;
+                    }
                    .image{
                         img{
                             width: auto;
@@ -607,6 +671,9 @@ header{
                     }
                     .box{
                         width: 80%;
+                        @include mq(sm){
+                            width: 100%;
+                        }
                         .item_name{
                             padding-left: 1rem;
                             font-size: 1.1rem;
@@ -614,6 +681,10 @@ header{
                             color: #17bdc5;
                             display: flex;
                             align-items: center;
+                            @include mq(sm){
+                                padding: 0;
+                                margin: 3vw auto;
+                            }
                             .newitem{
                                 font-size: 0.9rem;
                                 color: #fff;
@@ -629,6 +700,9 @@ header{
                         flex-flow: row nowrap;
                         justify-content: flex-start;
                         align-items: stretch;
+                        @include mq(sm){
+                            flex-flow: row wrap;
+                        }
                         .left{
                             margin-left: 1rem;
                             width: 15%;
@@ -642,18 +716,28 @@ header{
                             width: 85%;
                             .upper{
                                 display: flex;
+                                @include mq(sm){
+                                    display: block;
+                                }
                                 .item_code{
                                     margin-right: 1rem;
                                 }
                             }
                             .lower{
                                 display: flex;
+                                @include mq(sm){
+                                    flex-flow: column;
+                                }
                                 dl{
                                     background: #eee;
                                     display: flex;
                                     flex-flow: row nowrap;
                                     justify-content: flex-start;
                                     align-items: stretch;
+                                    @include mq(sm){
+                                        width: 8rem;
+                                        flex-flow: column wrap;
+                                    }
                                     dt{
                                         border: 1px solid #aaa;
                                         padding: 0.25rem;
@@ -663,6 +747,9 @@ header{
                                         border-left: none;
                                         border-right: none;
                                         padding: 0.25rem;
+                                        @include mq(sm){
+                                            border: 1px solid #aaa;
+                                        }
                                     }
                                     dd:last-child{
                                         border-right: 1px solid #aaa;
@@ -680,9 +767,17 @@ header{
                             margin-left: auto;
                             padding: 0.25rem;
                             display: flex;
+                            @include mq(sm){
+                                margin: 0;
+                                display: block;
+                            }
                             input[type="number"]{
                                 width: 4rem;
-                                margin-right: 0.75rem
+                                margin-right: 0.75rem;
+                                @include mq(sm){
+                                    height: 2rem;
+                                    margin: 3vw 0;
+                                }
                             }
                             .culc{
                                 display: flex;
@@ -698,6 +793,17 @@ header{
                 li:hover{
                     background: #fff2f6;
                 }
+                li.closeitem{
+                    background: #ccc;
+                    span.closeitem{
+                        font-size: 0.9rem;
+                        color: #fff;
+                        background: #400;
+                        border-radius: 5px;
+                        padding: 0.25rem;
+                        margin-right: 0.5rem;
+                    }
+                }
             }
         }
         .btns{
@@ -705,6 +811,14 @@ header{
             flex-flow: row nowrap;
             justify-content: center;
             align-items: center;
+            @include mq(sm){
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: #fff;
+            }
+            
             button{
                 margin: 1.5rem 0 1.5rem 1.5rem;
                 font-size: 1rem;
@@ -713,6 +827,11 @@ header{
                 flex-flow: row nowrap;
                 justify-content: center;
                 align-items: center;
+                @include mq(sm){
+                    margin: 1.5vw;
+                    padding: 1.5vw 5vw;
+                }
+
             }
             button.home{
                 border: none;
@@ -769,6 +888,9 @@ header{
                     border-radius: 5px 0 0 5px;
                     background: $color;
                     color: #fff;
+                    @include mq(sm){
+                        width: 36%;
+                    }
                 }
                 #total{
                     width: 200px;

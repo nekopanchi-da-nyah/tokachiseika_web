@@ -71,7 +71,7 @@ namespace ConfirmPage
             CASE WHEN (t1.""登録年月日"" + 14) >= current_date THEN '新商品' 
                ELSE ''
             END AS ""新商品""
-            FROM ""MW030得意先商品"" AS t1
+            FROM ""VW得意先商品"" AS t1
             LEFT JOIN ""MW035商品画像"" AS t2
             ON t1.""自社商品CD"" = t2.""自社商品CD"" 
             WHERE t1.""お客様CD"" = '" + Session["お客様CD"] + @"' 

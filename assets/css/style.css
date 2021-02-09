@@ -33,6 +33,12 @@ dl, dt, dd {
   margin: auto;
 }
 
+@media screen and (max-width: 698px) {
+  h1 a {
+    font-size: 5vw;
+  }
+}
+
 .breadcrumb div ul {
   display: flex;
   flex-flow: row nowrap;
@@ -64,8 +70,30 @@ header .inner h1 {
   white-space: nowrap;
 }
 
+@media screen and (max-width: 698px) {
+  header .inner .login_name {
+    font-size: 4vw;
+  }
+}
+
+header .inner .login_name br {
+  display: none;
+}
+
+@media screen and (max-width: 698px) {
+  header .inner .login_name br {
+    display: block;
+  }
+}
+
 header .inner form {
   margin-bottom: 0;
+}
+
+@media screen and (max-width: 698px) {
+  header .inner form input {
+    font-size: 3.5vw;
+  }
 }
 
 #main_container {
@@ -437,6 +465,14 @@ header .inner form {
   background: #fff;
   padding: 2rem;
   border-radius: 10px;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 698px) {
+  #usermenu {
+    padding: 0;
+  }
 }
 
 #usermenu h2 {
@@ -451,6 +487,12 @@ header .inner form {
   align-items: center;
   margin: auto;
   width: max-content;
+}
+
+@media screen and (max-width: 698px) {
+  #usermenu .output ul {
+    flex-flow: column;
+  }
 }
 
 #usermenu .output ul li {
@@ -483,6 +525,12 @@ header .inner form {
   background: #d27fa3;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order {
+    padding-bottom: 9vh;
+  }
+}
+
 .user #order form {
   background: #fff;
   padding: 1rem;
@@ -507,6 +555,12 @@ header .inner form {
   font-size: 1.1rem;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order form .row > div {
+    width: 100%;
+  }
+}
+
 .user #order form .row .userinfo {
   margin-right: 3rem;
 }
@@ -522,6 +576,12 @@ header .inner form {
   align-items: stretch;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order form .row .userinfo ul li {
+    width: 100%;
+  }
+}
+
 .user #order form .row .userinfo ul li label {
   width: 120px;
   background: #58b976;
@@ -533,10 +593,22 @@ header .inner form {
   text-align: center;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order form .row .userinfo ul li label {
+    width: 30%;
+  }
+}
+
 .user #order form .row .userinfo ul li select {
   width: 15em;
   border: 1px solid #58b976;
   border-radius: 0 5px 0 0;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order form .row .userinfo ul li select {
+    width: 70%;
+  }
 }
 
 .user #order form .row .userinfo ul li:last-child label {
@@ -559,6 +631,12 @@ header .inner form {
   align-items: stretch;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order form .row .sort ul li {
+    width: 100%;
+  }
+}
+
 .user #order form .row .sort ul li label {
   width: 120px;
   background: #58b976;
@@ -569,10 +647,22 @@ header .inner form {
   text-align: center;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order form .row .sort ul li label {
+    width: 30%;
+  }
+}
+
 .user #order form .row .sort ul li select {
   width: 15em;
   border: 1px solid #58b976;
   border-radius: 0 5px 5px 0;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order form .row .sort ul li select {
+    width: 70%;
+  }
 }
 
 .user #order form .search .input_block {
@@ -580,6 +670,12 @@ header .inner form {
   flex-flow: row nowrap;
   justify-content: center;
   align-items: stretch;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order form .search .input_block {
+    justify-content: flex-start;
+  }
 }
 
 .user #order form .search .input_block > p {
@@ -633,6 +729,12 @@ header .inner form {
   align-items: stretch;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order .output ul li {
+    flex-flow: row wrap;
+  }
+}
+
 .user #order .output ul li .image img {
   width: auto;
   max-width: 160px;
@@ -644,6 +746,12 @@ header .inner form {
   width: 80%;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order .output ul li .box {
+    width: 100%;
+  }
+}
+
 .user #order .output ul li .box .item_name {
   padding-left: 1rem;
   font-size: 1.1rem;
@@ -651,6 +759,13 @@ header .inner form {
   color: #17bdc5;
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order .output ul li .box .item_name {
+    padding: 0;
+    margin: 3vw auto;
+  }
 }
 
 .user #order .output ul li .box .item_name .newitem {
@@ -667,6 +782,12 @@ header .inner form {
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: stretch;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order .output ul li .flex {
+    flex-flow: row wrap;
+  }
 }
 
 .user #order .output ul li .flex .left {
@@ -687,6 +808,12 @@ header .inner form {
   display: flex;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order .output ul li .flex .right .upper {
+    display: block;
+  }
+}
+
 .user #order .output ul li .flex .right .upper .item_code {
   margin-right: 1rem;
 }
@@ -695,12 +822,25 @@ header .inner form {
   display: flex;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order .output ul li .flex .right .lower {
+    flex-flow: column;
+  }
+}
+
 .user #order .output ul li .flex .right .lower dl {
   background: #eee;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: stretch;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order .output ul li .flex .right .lower dl {
+    width: 8rem;
+    flex-flow: column wrap;
+  }
 }
 
 .user #order .output ul li .flex .right .lower dl dt {
@@ -713,6 +853,12 @@ header .inner form {
   border-left: none;
   border-right: none;
   padding: 0.25rem;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order .output ul li .flex .right .lower dl dd {
+    border: 1px solid #aaa;
+  }
 }
 
 .user #order .output ul li .flex .right .lower dl dd:last-child {
@@ -732,9 +878,23 @@ header .inner form {
   display: flex;
 }
 
+@media screen and (max-width: 698px) {
+  .user #order .output ul li .flex .inputs {
+    margin: 0;
+    display: block;
+  }
+}
+
 .user #order .output ul li .flex .inputs input[type="number"] {
   width: 4rem;
   margin-right: 0.75rem;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order .output ul li .flex .inputs input[type="number"] {
+    height: 2rem;
+    margin: 3vw 0;
+  }
 }
 
 .user #order .output ul li .flex .inputs .culc {
@@ -750,11 +910,34 @@ header .inner form {
   background: #fff2f6;
 }
 
+.user #order .output ul li.closeitem {
+  background: #ccc;
+}
+
+.user #order .output ul li.closeitem span.closeitem {
+  font-size: 0.9rem;
+  color: #fff;
+  background: #400;
+  border-radius: 5px;
+  padding: 0.25rem;
+  margin-right: 0.5rem;
+}
+
 .user #order .btns {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order .btns {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+  }
 }
 
 .user #order .btns button {
@@ -765,6 +948,13 @@ header .inner form {
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order .btns button {
+    margin: 1.5vw;
+    padding: 1.5vw 5vw;
+  }
 }
 
 .user #order .btns button.home {
@@ -834,6 +1024,12 @@ header .inner form {
   border-radius: 5px 0 0 5px;
   background: #58b976;
   color: #fff;
+}
+
+@media screen and (max-width: 698px) {
+  .user #order .total > div p:first-child {
+    width: 36%;
+  }
 }
 
 .user #order .total > div #total {
