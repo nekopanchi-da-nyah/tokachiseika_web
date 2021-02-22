@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.UI;
 using JfosLib;
 
-namespace OrderPage
+namespace HistoryPage
 {
    public partial class Program : Page
    {
@@ -18,10 +18,10 @@ namespace OrderPage
    
       protected void Page_Init(object sender, EventArgs e)
       {
-         set_Combo();
+         SetCombo();
       }
       
-      protected void set_Combo()
+      protected void SetCombo()
       {
          var sql = @"SELECT * FROM ""VWカスタマー名称"" WHERE ""担当者CD"" = '" + (string)Session["担当者CD"]  + "' ;";
          var db = new DB(sql);
@@ -42,15 +42,11 @@ namespace OrderPage
       
       protected void Search_Click(object sender, EventArgs e)
       {
-         Session["発注得意先CD"] = (string)Request.Form["branch"];
-         Session["発注納品先CD"] = (string)Request.Form["store"];
-         Session["orderby"] = (string)Request.Form["orderby"];
-         Session["販売停止商品非表示"] = Convert.ToBoolean((string)Request.Form["item_condition"]);
          owk = new OrderWeek((string)Session["お客様CD"], (string)Session["発注得意先CD"], (string)Session["発注納品先CD"]);
          orderDay = owk.weeks[owk.orderDay].day;
          delivDay = owk.weeks[owk.orderDay].deliveryDay;
          closeDay = ((DateTime)owk.weeks[owk.orderDay].day).Add(owk.weeks[owk.orderDay].time);
-         itemList = select_Items();
+         itemList = select_Order();
       }
       
       protected DataTable select_Items()

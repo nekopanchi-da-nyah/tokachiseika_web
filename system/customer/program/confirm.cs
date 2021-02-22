@@ -77,6 +77,11 @@ namespace ConfirmPage
             WHERE t1.""お客様CD"" = '" + Session["お客様CD"] + @"' 
             AND t1.""得意先CD"" = '" + Session["得意先CD"]  + @"' 
             AND t1.""納品先CD"" = '" + Session["発注納品先CD"] + @"' "; 
+            
+         if((bool)Session["販売停止商品非表示"])
+         {
+            sql += @"AND ""販売停止FLG"" <> '" + 1 + "' ";
+         }
          
          var db = new DB(sql);
          var ds = new DataSet();

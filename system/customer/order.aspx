@@ -74,9 +74,10 @@
                                  </select>
                               </li>
                               <li>
-                                 <label>条件1</label>
-                                 <select name="">
-                                    <option></option>
+                                 <label>販売停止商品</label>
+                                 <select name="item_condition">
+                                    <option value="true">表示しない</option>
+                                    <option value="false">表示する</option>
                                  </select>
                               </li>
                            </ul>
@@ -99,84 +100,84 @@
                <% if(itemList != null){ %>
                <div class="output">
                   <form method="POST" action="confirm.aspx" id="confirm" onSubmit="return check()">
-                  <div>
-                     <p>対象件数は <span><%= itemList.Rows.Count %></span>件です</p>
-                     <ul>
-                        <% if( itemList.Rows.Count > 0 ){ %>
-                        <% for( var i = 0; i < itemList.Rows.Count; i++ ){ %>
-                        <% if((string)itemList.Rows[i]["販売停止FLG"] == "1"){ %>
-                        <li class="closeitem">
-                        <% }else{ %>
-                        <li>
-                        <% } %>
-                           <div class="image">
-                              <figure>
-                                 <% if( itemList.Rows[i]["画像名"] != DBNull.Value){ %>
-                                 <img src="../../upload/img/<%= itemList.Rows[i]["画像名"] %>">
-                                 <% }else{ %>
-                                 <img src="../../upload/img/noimage.png">
-                                 <% } %>
-                              </figure>
-                           </div>
-                           <div class="box">
-                              <div class="upper">
-                                 <p class="item_name">
-                                    <% if(itemList.Rows[i]["新商品"] != ""){ %>
-                                    <span class="newitem"><%= itemList.Rows[i]["新商品"] %></span>
-                                    <% }else if((string)itemList.Rows[i]["販売停止FLG"] == "1"){ %>
-                                    <span class="closeitem">販売停止商品</span>
+                     <div>
+                        <p>対象件数は <span><%= itemList.Rows.Count %></span>件です</p>
+                        <ul>
+                           <% if( itemList.Rows.Count > 0 ){ %>
+                           <% for( var i = 0; i < itemList.Rows.Count; i++ ){ %>
+                           <% if((string)itemList.Rows[i]["販売停止FLG"] == "1"){ %>
+                           <li class="closeitem">
+                           <% }else{ %>
+                           <li>
+                           <% } %>
+                              <div class="image">
+                                 <figure>
+                                    <% if( itemList.Rows[i]["画像名"] != DBNull.Value){ %>
+                                    <img src="../../upload/img/<%= itemList.Rows[i]["画像名"] %>">
+                                    <% }else{ %>
+                                    <img src="../../upload/img/noimage.png">
                                     <% } %>
-                                    <%= (string)itemList.Rows[i]["得意先商品名"] %>
-                                 </p>
+                                 </figure>
                               </div>
-                              <div class="flex">
-                                 <div class="left">
-                                    <div class="lower">
-                                       <p class="item_unit"></p>
-                                       <p class="unit_guid"></p>
-                                    </div>
+                              <div class="box">
+                                 <div class="upper">
+                                    <p class="item_name">
+                                       <% if(itemList.Rows[i]["新商品"] != ""){ %>
+                                       <span class="newitem"><%= itemList.Rows[i]["新商品"] %></span>
+                                       <% }else if((string)itemList.Rows[i]["販売停止FLG"] == "1"){ %>
+                                       <span class="closeitem">販売停止商品</span>
+                                       <% } %>
+                                       <%= (string)itemList.Rows[i]["得意先商品名"] %>
+                                    </p>
                                  </div>
-                                 
-                                 <div class="right">
-                                    <div class="upper">
-                                       <p class="item_code">(<%= itemList.Rows[i]["得意先商品CD"] %>)</p>
-                                       <p class="standard">規格: <%= itemList.Rows[i]["商品規格2"] %></p>
+                                 <div class="flex">
+                                    <div class="left">
+                                       <div class="lower">
+                                          <p class="item_unit"></p>
+                                          <p class="unit_guid"></p>
+                                       </div>
                                     </div>
-                                    <div class="lower">
-                                       <dl>
-                                          <dt>注文日</dt>
-                                          <dd><%= String.Format( "{0:yyyy/MM/dd}", orderDay ) %></dd>
-                                          <dt>納品日</dt>
-                                          <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDay ) %></dd>
-                                       </dl>
-                                       <p class="item_price" data-value="<%= String.Format("{0:#.#0}", itemList.Rows[i]["売上単価"]) %>">＠<%= String.Format("{0:#,###.#0}", itemList.Rows[i]["売上単価"]) %>(税抜)</p>
-                                       <div class="inputs">
-                                          <label>数量</label>
-                                          <% if((string)itemList.Rows[i]["販売停止FLG"] == "1"){ %>
-                                          <input type="number" min="0" name="<%= (string)itemList.Rows[i]["得意先商品CD"] %>" tabindex="<%= i + 1 %>" value="<%= itemList.Rows[i]["数量"] %>" disabled >
-                                          <% }else{ %>
-                                          <input type="number" min="0" name="<%= (string)itemList.Rows[i]["得意先商品CD"] %>" tabindex="<%= i + 1 %>" value="<%= itemList.Rows[i]["数量"] %>" >
-                                          <% } %>
-                                          <div class="culc">
-                                             <p>金額</p>
-                                             <p style="width: 4rem; text-align: right; font-weight: bold;"><span class="calc_out"><%= String.Format("{0: #,###.00}", itemList.Rows[i]["売上金額"]) %></span></p>
+                                    
+                                    <div class="right">
+                                       <div class="upper">
+                                          <p class="item_code">(<%= itemList.Rows[i]["得意先商品CD"] %>)</p>
+                                          <p class="standard">規格: <%= itemList.Rows[i]["商品規格2"] %></p>
+                                       </div>
+                                       <div class="lower">
+                                          <dl>
+                                             <dt>注文日</dt>
+                                             <dd><%= String.Format( "{0:yyyy/MM/dd}", orderDay ) %></dd>
+                                             <dt>納品日</dt>
+                                             <dd><%= String.Format( "{0:yyyy/MM/dd}", delivDay ) %></dd>
+                                          </dl>
+                                          <p class="item_price" data-value="<%= String.Format("{0:#.#0}", itemList.Rows[i]["売上単価"]) %>">＠<%= String.Format("{0:#,###.#0}", itemList.Rows[i]["売上単価"]) %>(税抜)</p>
+                                          <div class="inputs">
+                                             <label>数量</label>
+                                             <% if((string)itemList.Rows[i]["販売停止FLG"] == "1"){ %>
+                                             <input type="number" min="0" name="<%= (string)itemList.Rows[i]["得意先商品CD"] %>" tabindex="<%= i + 1 %>" value="<%= itemList.Rows[i]["数量"] %>" disabled >
+                                             <% }else{ %>
+                                             <input type="number" min="0" name="<%= (string)itemList.Rows[i]["得意先商品CD"] %>" tabindex="<%= i + 1 %>" value="<%= itemList.Rows[i]["数量"] %>" >
+                                             <% } %>
+                                             <div class="culc">
+                                                <p>金額</p>
+                                                <p style="width: 4rem; text-align: right; font-weight: bold;"><span class="calc_out"><%= String.Format("{0: #,###.00}", itemList.Rows[i]["売上金額"]) %></span></p>
+                                             </div>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
                               </div>
-                           </div>
-                        </li>
-                        <% } %>
-                        <% } %>
-                     </ul>
-                  </div>
-                  <div class="btns">
-                     <a href="menu.aspx"><button type="button" value="cancel" class="end">戻る</button></a>
-                     <button name="submit" value="confirm" id="confirm_btn" disabled class="puls">発注</button>
-                  </div>
+                           </li>
+                           <% } %>
+                           <% } %>
+                        </ul>
+                     </div>
+                     <div class="btns">
+                        <a href="menu.aspx"><button type="button" value="cancel" class="end">戻る</button></a>
+                        <button name="submit" value="confirm" id="confirm_btn" disabled class="puls">発注</button>
+                     </div>
+                  </form>
                </div>
-               </form>
                <% } %>
             </div>
 </asp:Content>

@@ -49,7 +49,7 @@
          if(inputs[i].value != null || inputs[i].value != undefined){
             var pri = getPrice(i);
             var uni = Number(inputs[i].value);
-            holder[i] = pri * uni;
+            holder[i] = sumRound(pri * uni)
             calcTotal.innerText = formatter.format(sumTotal());
          }
          (function(i){
@@ -87,6 +87,9 @@
          case "2":
             arg = Math.ceil(arg);
             break;
+            
+         default:
+            arg = Math.floor(arg);
       }
       return arg;
    }
