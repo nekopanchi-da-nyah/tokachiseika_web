@@ -89,8 +89,29 @@
                   <form method="POST" action="confirm.aspx" id="confirm" onSubmit="return check()">
                      <div>
                         <p>対象件数は <span></span>件です</p>
-                        <ul>
-                        </ul>
+                        <table>
+                           <thead>
+                              <tr>
+                                 <th>注文年月日</th>
+                                 <th>納品予定日</th>
+                                 <th>店舗</th>
+                                 <th>納品先</th>
+                                 <th>発注金額</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                           <% if(dt.Rows.Count > 0){ %>
+                           <% for(var i = 0; i < dt.Rows.Count; i++){ %>
+                              <tr>
+                                 <td><%= ((DateTime)dt.Rows[i]["注文年月日"]).ToString("yyyy/MM/dd") %></td>
+                                 <td><%= ((DateTime)dt.Rows[i]["納品年月日"]).ToString("yyyy/MM/dd") %></td>
+                                 <td><%= dt.Rows[i]["得意先名称"] %></td>
+                                 <td><%= dt.Rows[i]["店舗名称"] %></td>
+                                 <td><%= String.Format("{0: #,### 円}", dt.Rows[i]["売上金額"] ) %></td>
+                              </tr>
+                           <% }} %>
+                           </tbody>
+                        </table>
                      </div>
                      <div class="btns">
                         <a href="menu.aspx"><button type="button" value="cancel" class="end">戻る</button></a>

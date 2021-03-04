@@ -182,16 +182,35 @@ namespace ConfirmPage
                   {
                      /*ifネスト内でコマンドをつくるので外で定義*/
                      var cmd = new NpgsqlCommand();
+
+                     var now = DateTime.Now;
+                     var hour = now.Hour;
+                     var minute = now.Minute;
+                     var second = now.Second;
+                     var span = new TimeSpan(hour, minute, second);
                      
                      var exists = dt.Select("相手商品CD = '" + order.strClientItemCD + "' ");
                      if( exists.Length > 0 )
                      {
-                        cmd = new NpgsqlCommand(@"UPDATE ""DW010注文明細"" SET ""数量"" = @q , ""売上金額"" = @s  WHERE ""管理番号"" = @id", db.conn);
+                        var cmdtxt = @"
+                           UPDATE ""DW010注文明細"" 
+                           SET 
+                              ""数量"" = @q , 
+                              ""売上金額"" = @s, 
+                              ""更新年月日"" = @d, 
+                              ""更新時間"" = @t,
+                              ""更新者CD"" = @u
+                           WHERE ""管理番号"" = @id";
+                        cmd = new NpgsqlCommand(cmdtxt, db.conn);
                         cmd.Parameters.Add(new NpgsqlParameter("@id", NpgsqlDbType.Varchar) { Value = (string)exists[0]["管理番号"] });
                         cmd.Parameters.Add(new NpgsqlParameter("@q", NpgsqlDbType.Integer) { Value = (int)order.intOrderUnit });
                         cmd.Parameters.Add(new NpgsqlParameter("@s", NpgsqlDbType.Integer) { Value = (int)order.deciOrderSales });
+                        cmd.Parameters.Add(new NpgsqlParameter("@d", NpgsqlDbType.Date) { Value = (DateTime)DateTime.Today });
+                        cmd.Parameters.Add(new NpgsqlParameter("@t", NpgsqlDbType.Interval) { Value = (TimeSpan)span });
+                        cmd.Parameters.Add(new NpgsqlParameter("@u", NpgsqlDbType.Varchar) { Value = (string)Session["担当者CD"] });
                      }
-                     else{
+                     else
+                     {
                         var step = admin.seq++;
                         var seq = String.Format("{0:000000000}", step);
                         var cmdtxt = @"
@@ -212,7 +231,10 @@ namespace ConfirmPage
                               ""換算数"", 
                               ""数量"", 
                               ""売上単価"", 
-                              ""売上金額""
+                              ""売上金額"", 
+                              ""登録年月日"", 
+                              ""登録時間"", 
+                              ""登録者CD""
                            ) 
                            VALUES( 
                               @seq, 
@@ -231,7 +253,10 @@ namespace ConfirmPage
                               @strChange,
                               @intOrderUnit,
                               @deciOrderSaleUnit,
-                              @deciOrderSales
+                              @deciOrderSales,
+                              @dateEntry,
+                              @spanEntry,
+                              @u
                            ); ";
                         
                         cmd = new NpgsqlCommand(cmdtxt, db.conn);
@@ -252,6 +277,9 @@ namespace ConfirmPage
                         cmd.Parameters.Add(new NpgsqlParameter("@intOrderUnit", NpgsqlDbType.Integer) { Value = (int)order.intOrderUnit });
                         cmd.Parameters.Add(new NpgsqlParameter("@deciOrderSaleUnit", NpgsqlDbType.Integer) { Value = (int)order.deciOrderSaleUnit });
                         cmd.Parameters.Add(new NpgsqlParameter("@deciOrderSales", NpgsqlDbType.Integer) { Value = (int)order.deciOrderSales });
+                        cmd.Parameters.Add(new NpgsqlParameter("@dateEntry", NpgsqlDbType.Date) { Value = (DateTime)DateTime.Today });
+                        cmd.Parameters.Add(new NpgsqlParameter("@spanEntry", NpgsqlDbType.Interval) { Value = (TimeSpan)span });
+                        cmd.Parameters.Add(new NpgsqlParameter("@u", NpgsqlDbType.Varchar) { Value = (string)Session["担当者CD"] });
                      }
                      cmd.ExecuteNonQuery();
                   }
