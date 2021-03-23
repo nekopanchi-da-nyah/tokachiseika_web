@@ -25,7 +25,7 @@ namespace PageMaster
          {
             if(HttpContext.Current.User.Identity.IsAuthenticated == false || Session["担当者CD"] == null)
             {
-               Response.Redirect("/");
+               
             }
          }
       }

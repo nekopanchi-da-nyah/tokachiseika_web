@@ -15,7 +15,7 @@ namespace JfosLib
       private string server =    "localhost";
       private string port =      "7777";
       private string user_id =   "postgres";
-      private string database =  "TSKWEBDB01";
+      private string database =  "TKSWEBDB01";
       private string password =  "jfos";
       private string enlist =    "true";
       
@@ -68,7 +68,7 @@ namespace JfosLib
       
       public OrderWeek(string clientCD, string branchCD, string orderCD)
       {
-         /*システム的に 0が日曜日なので */
+         /*言語的に 0が日曜日なので日曜日が先 */
          var sql = @"
             SELECT  
                COALESCE(""注文曜日日"", '0' ) AS ""日"" ,
